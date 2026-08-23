@@ -263,6 +263,15 @@ button {
 }
 .dog-roam.is-static { animation: none; }
 
+.mascot-corner {
+  position: fixed;
+  bottom: 8px;
+  z-index: 4;
+  pointer-events: none;
+}
+.mascot-corner-left { left: 8px; }
+.mascot-corner-right { right: 8px; }
+
 @keyframes bob {
   0%, 100% { transform: translateY(0) translateX(0); }
   50% { transform: translateY(4px) translateX(-3px); }

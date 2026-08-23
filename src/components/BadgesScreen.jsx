@@ -11,7 +11,7 @@ export default function BadgesScreen({ onBack, prefersReducedMotion }) {
   return (
     <div className="console-frame screen-content">
       <DragonCreature prefersReducedMotion={prefersReducedMotion} />
-      <div className={`dog-roam ${prefersReducedMotion ? 'is-static' : ''}`}>
+      <div className={`mascot-corner mascot-corner-right dog-roam ${prefersReducedMotion ? 'is-static' : ''}`}>
         <DogCharacter prefersReducedMotion={prefersReducedMotion} />
       </div>
       <h2 className="font-pixel" style={{ fontSize: '14px' }}>BADGES</h2>

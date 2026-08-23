@@ -20,7 +20,9 @@ export default function MainMenu({ onNavigate, playBlip, prefersReducedMotion })
 
   return (
     <div className="menu-screen">
-      <CatCharacter prefersReducedMotion={prefersReducedMotion} />
+      <div className="mascot-corner mascot-corner-left">
+        <CatCharacter prefersReducedMotion={prefersReducedMotion} />
+      </div>
       <h1 className="font-pixel menu-title">{profile.identity.name.toUpperCase()}</h1>
       <ul className="menu-list font-pixel">
         {MENU_ITEMS.map((item, i) => (
