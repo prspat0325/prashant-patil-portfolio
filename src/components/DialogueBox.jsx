@@ -7,7 +7,13 @@ export default function DialogueBox({ text, playBlip, prefersReducedMotion, clas
 
   useEffect(() => {
     if (displayed.length > lastLengthRef.current && !done) {
-      playBlip?.('type')
+      // Blip on every typed character reads as a clean rhythm for a short
+      // line, but for long dialogue (e.g. Badges' joined bullet points) it
+      // becomes a rapid machine-gun of beeps — thin it out and skip spaces.
+      const lastChar = displayed[displayed.length - 1]
+      if (lastChar !== ' ' && displayed.length % 2 === 0) {
+        playBlip?.('type')
+      }
     }
     lastLengthRef.current = displayed.length
   }, [displayed, done, playBlip])
