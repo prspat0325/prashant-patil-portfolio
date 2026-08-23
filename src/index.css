@@ -152,6 +152,21 @@ button {
 
 .menu-title { font-size: clamp(14px, 3vw, 20px); text-shadow: 2px 2px var(--gbc-red); }
 
+.menu-list-wrap {
+  position: relative;
+  width: 100%;
+  max-width: min(90vw, 640px);
+}
+
+.mascot-perch {
+  position: absolute;
+  top: -30px;
+  z-index: 3;
+  pointer-events: none;
+}
+.mascot-perch-left { left: -14px; transform: scaleX(-1); }
+.mascot-perch-right { right: -14px; }
+
 .menu-list {
   list-style: none;
   margin: 0;
