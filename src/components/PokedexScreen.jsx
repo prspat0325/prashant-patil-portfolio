@@ -25,7 +25,7 @@ export default function PokedexScreen({ onBack, playBlip, prefersReducedMotion }
       <h2 className="font-pixel" style={{ fontSize: '14px' }}>POKEDEX</h2>
 
       {!openProject && (
-        <ul className="menu-list font-pixel" style={{ maxWidth: 420 }}>
+        <ul className="menu-list font-pixel">
           {projects.map((p, i) => (
             <li key={p.id} className={i === cursorIndex ? 'active' : ''}>
               <button type="button" onClick={() => { playBlip(); setOpenId(p.id) }}>

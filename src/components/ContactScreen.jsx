@@ -19,7 +19,7 @@ export default function ContactScreen({ onBack, playBlip }) {
   return (
     <div className="console-frame screen-content">
       <h2 className="font-pixel" style={{ fontSize: '14px' }}>CONTACT</h2>
-      <ul className="menu-list font-pixel" style={{ maxWidth: 420 }}>
+      <ul className="menu-list font-pixel">
         {items.map((item, i) => (
           <li key={item.label} className={i === cursorIndex ? 'active' : ''}>
             <a
