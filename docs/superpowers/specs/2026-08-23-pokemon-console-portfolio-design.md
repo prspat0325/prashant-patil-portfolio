@@ -87,11 +87,12 @@ All copy is sourced directly from `Prashant_Patil_Resume_DevOpsEngineer`
 
 1. **Boot screen** — "PRASHANT PATIL" title card with a blinking "PRESS
    START" prompt. Click or any keypress advances to the main hub.
-2. **Main hub — walkable town** (revised from a vertical menu list, per
-   user feedback; see "Hub Screen Revision History" below). Selecting a
-   section still maps to the same five keys/screens, each with a subtitle
-   for clarity (added after initial feedback that the game terminology
-   alone was unclear):
+2. **Main hub — ocean food-throw scene** (current; revised twice from an
+   original vertical menu list, then a walkable town — see "Hub Screen
+   Revision History" below for the full progression). Selecting a section
+   still maps to the same five keys/screens, each with a subtitle for
+   clarity (added after initial feedback that the game terminology alone
+   was unclear):
    - **TRAINER CARD** ("About") — bio, title, location, a few stat callouts
      drawn from the resume summary (years of experience, specialty areas),
      and a resume PDF download button.
@@ -106,21 +107,20 @@ All copy is sourced directly from `Prashant_Patil_Resume_DevOpsEngineer`
    - **CONTACT** ("Get in touch") — email / phone / LinkedIn / GitHub as a
      selectable list; selecting one opens `mailto:`/`tel:`/the external
      profile link.
-3. Entering a section (walking into its building in the town, or selecting
-   it in a sub-screen's own list) triggers a screen-wipe transition. A
+3. Entering a section (throwing food at its target, or selecting it in a
+   sub-screen's own list) triggers a screen-wipe transition. A
    `B`-equivalent control (on-screen button, plus Escape/Backspace) returns
-   to the town from any section; within POKEDEX/CONTACT, the same keys
+   to the hub from any section; within POKEDEX/CONTACT, the same keys
    step back through that screen's own list first.
 4. Dialogue-box body text types itself out letter-by-letter.
 
 ### Interaction model
 
-- **Town hub**: Arrow keys walk the character continuously (held-key,
-  frame-driven movement, not single-step); walking into a building's door
-  radius enters that section. Every building is also a real `<button>`,
-  directly clickable/tappable, so mouse/touch users reach every section
-  without needing the keyboard — walking is additive flavor, not a
-  requirement.
+- **Ocean hub**: Left/Right cycles which floating target is aimed (a
+  bobbing animation marks it), Enter/Space throws a food sprite that arcs
+  to that target before navigating. Every target is also a real
+  `<button>`, directly clickable/tappable, so mouse/touch users reach
+  every section without needing the keyboard.
 - **Sub-screen lists** (POKEDEX, CONTACT): Up/Down moves a `▶` cursor,
   Enter/Space selects, Escape/Backspace goes back. Every item is also
   directly clickable/tappable.
@@ -166,11 +166,14 @@ original-only decision.)
 - A deep-sea leviathan-styled creature (`LeviathanCreature`), redrawn with
   a rounded body, dorsal fin, and tail fluke, with a slow bobbing loop in
   the background of the **POKEDEX** screen.
-- A fourth original mascot (`BoyCharacter`) is the player-controlled
-  character in the walkable town hub (superseding an earlier static
-  `MenuCompanion` blob that stood next to the old menu list — see
-  "Hub Screen Revision History" below) — walks via arrow keys, flips to
-  face its direction of travel, and bobs while moving.
+- A fourth original mascot (`BoyCharacter`) is the player character on the
+  ocean hub (superseding an earlier static `MenuCompanion` blob that stood
+  next to the original menu list, then a walkable version of itself in the
+  town hub — see "Hub Screen Revision History" below for the full
+  progression). It now stands fixed on the sand, since aiming/throwing
+  replaced walking as the hub's core interaction; its leg-step animation
+  (built for the walkable-town era) stays in the component but is unused
+  while standing still.
 
 All four are decorative, sized to have real presence without overwhelming
 the resume content, and all freeze under `prefers-reduced-motion`.
@@ -204,6 +207,45 @@ follow-up changes to the hub specifically:
    real, directly clickable `<button>` so the mouse/touch parity
    requirement in Global Constraints still holds without needing an
    on-screen d-pad.
+
+   A follow-up pass fixed several execution-quality complaints ("looks
+   shit"): sprites had no outlines (real pixel-art always outlines against
+   the background — added via a stacked-`drop-shadow` CSS trick on
+   `.creature`/`.pixel-outline`), buildings had no windows, the ground was
+   a flat diagonal gradient instead of a tile texture, the character wore
+   a plain jacket/sneakers instead of a striped shirt/jeans/slippers, legs
+   didn't move while walking, and — most substantively — the dirt paths
+   connecting buildings were hand-guessed fractional rectangles that only
+   aligned by coincidence at one viewport size (building positions combine
+   a fractional origin with a *fixed-px* icon size, so fractional-only path
+   math drifts on other screen sizes). The fix was to compute the path
+   network programmatically from each building's real door position (same
+   formula the walk-in collision check already used) rather than hand-tune
+   more constants.
+
+3. **Full pivot to an ocean/food-throwing scene**, replacing the walkable
+   town entirely (not kept as an alternate mode): "the scene should be on
+   ocean... he has to throw food... each which has name and my skill,
+   contact xyz." `TownScreen.jsx` was deleted in favor of `OceanScene.jsx`.
+   The same five destinations remain, re-themed as floating targets in the
+   water instead of buildings:
+
+   | Target | Section |
+   |---|---|
+   | Message Buoy | TRAINER CARD (About) |
+   | Treasure Raft | POKEDEX (Projects) |
+   | Coral Marker | MOVES (Skills) |
+   | Anchor Point | BADGES (Experience) |
+   | Lighthouse Dock | CONTACT |
+
+   Interaction changed from walking-into-radius to aim-and-throw:
+   Left/Right cycles which target is aimed (a bobbing animation marks the
+   aimed target), Enter/Space throws a food sprite that arcs (Framer
+   Motion, `onAnimationComplete`) from the player to that target before
+   navigating; every target is also directly clickable/tappable, preserving
+   the mouse/touch parity requirement. The player character no longer
+   roams free — it stands fixed on the sand — since aiming/throwing, not
+   walking, is now the core mechanic.
 
 Separately, sound was simplified twice based on direct feedback: first the
 per-character typing blip was throttled (skip spaces, every other
