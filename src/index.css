@@ -231,6 +231,10 @@ button {
 
 .creature, .pixel-outline {
   image-rendering: pixelated;
+  /* Without this, a rotating tail (or any transform that pushes content
+     past the original viewBox) gets clipped — SVGs clip to their
+     viewport by default. */
+  overflow: visible;
   /* Solid 1px outline around the sprite silhouette — the single biggest
      lever for making flat-color pixel-rect sprites read as game sprites
      rather than plain shapes. */

@@ -2,7 +2,7 @@ export default function DogCharacter({ prefersReducedMotion }) {
   return (
     <svg
       className={`creature dog-character ${prefersReducedMotion ? 'is-static' : ''}`}
-      width="84" height="84" viewBox="0 0 14 14" shapeRendering="crispEdges"
+      width="64" height="64" viewBox="0 0 14 14" shapeRendering="crispEdges"
       aria-hidden="true"
     >
       {/* tail, tight curl at the side — rotates as one unit to wag */}
@@ -13,15 +13,16 @@ export default function DogCharacter({ prefersReducedMotion }) {
         <rect x="12" y="7" width="2" height="2" fill="#e0954a" />
         <rect x="13" y="5" width="2" height="2" fill="#e0954a" />
       </g>
-      {/* ears */}
-      <rect x="2" y="0" width="2" height="2" fill="#b8712f" />
-      <rect x="10" y="0" width="2" height="2" fill="#b8712f" />
+      {/* short, rounded floppy ears */}
+      <rect x="1" y="1" width="2" height="2" fill="#b8712f" />
+      <rect x="11" y="1" width="2" height="2" fill="#b8712f" />
       {/* head + cream face patch */}
       <rect x="2" y="2" width="10" height="5" fill="#e0954a" />
       <rect x="3" y="4" width="8" height="3" fill="#f5e6d3" />
       <rect x="4" y="4" width="1" height="1" fill="#1d1d1d" />
       <rect x="9" y="4" width="1" height="1" fill="#1d1d1d" />
-      <rect x="6" y="6" width="2" height="1" fill="#1d1d1d" />
+      {/* big round black nose */}
+      <rect x="6" y="6" width="2" height="2" fill="#1d1d1d" />
       {/* collar */}
       <rect x="2" y="7" width="10" height="1" fill="#3a6fd8" />
       {/* body + belly patch */}
