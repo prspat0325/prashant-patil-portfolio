@@ -87,12 +87,13 @@ All copy is sourced directly from `Prashant_Patil_Resume_DevOpsEngineer`
 
 1. **Boot screen** — "PRASHANT PATIL" title card with a blinking "PRESS
    START" prompt. Click or any keypress advances to the main hub.
-2. **Main hub — ocean food-throw scene** (current; revised twice from an
-   original vertical menu list, then a walkable town — see "Hub Screen
-   Revision History" below for the full progression). Selecting a section
-   still maps to the same five keys/screens, each with a subtitle for
-   clarity (added after initial feedback that the game terminology alone
-   was unclear):
+2. **Main hub — vertical menu list** (current; the hub design went through
+   two intermediate revisions — a walkable town, then an ocean food-throw
+   scene — before settling back on a plain clickable list; see "Hub Screen
+   Revision History" below for the full progression). A `▶` cursor marks
+   the highlighted item; selecting one maps to the same five keys/screens,
+   each with a subtitle for clarity (added after initial feedback that the
+   game terminology alone was unclear):
    - **TRAINER CARD** ("About") — bio, title, location, a few stat callouts
      drawn from the resume summary (years of experience, specialty areas),
      and a resume PDF download button.
@@ -107,23 +108,19 @@ All copy is sourced directly from `Prashant_Patil_Resume_DevOpsEngineer`
    - **CONTACT** ("Get in touch") — email / phone / LinkedIn / GitHub as a
      selectable list; selecting one opens `mailto:`/`tel:`/the external
      profile link.
-3. Entering a section (throwing food at its target, or selecting it in a
-   sub-screen's own list) triggers a screen-wipe transition. A
-   `B`-equivalent control (on-screen button, plus Escape/Backspace) returns
-   to the hub from any section; within POKEDEX/CONTACT, the same keys
-   step back through that screen's own list first.
+3. Selecting a section (from the hub list, or from a sub-screen's own
+   list) triggers a screen-wipe transition. A `B`-equivalent control
+   (on-screen button, plus Escape/Backspace) returns to the hub from any
+   section; within POKEDEX/CONTACT, the same keys step back through that
+   screen's own list first.
 4. Dialogue-box body text types itself out letter-by-letter.
 
 ### Interaction model
 
-- **Ocean hub**: Left/Right cycles which floating target is aimed (a
-  bobbing animation marks it), Enter/Space throws a food sprite that arcs
-  to that target before navigating. Every target is also a real
-  `<button>`, directly clickable/tappable, so mouse/touch users reach
+- **Hub and sub-screen lists** (main hub, POKEDEX, CONTACT): Up/Down moves
+  a `▶` cursor, Enter/Space selects, Escape/Backspace goes back. Every
+  item is also directly clickable/tappable, so mouse/touch users reach
   every section without needing the keyboard.
-- **Sub-screen lists** (POKEDEX, CONTACT): Up/Down moves a `▶` cursor,
-  Enter/Space selects, Escape/Backspace goes back. Every item is also
-  directly clickable/tappable.
 - Underlying markup is real semantic HTML (headings, links, buttons) styled
   to look like a game UI — not a canvas/game-engine reimplementation — so
   links are copyable, text is selectable, and the site remains usable by
@@ -131,11 +128,10 @@ All copy is sourced directly from `Prashant_Patil_Resume_DevOpsEngineer`
 
 ### Sound
 
-- A single confirm blip, played when a section is entered (walking into a
-  building, or clicking a building/list item) — nothing plays on cursor
-  movement or during dialogue typing (both were tried and cut: movement/
-  typing blips read as noisy rather than "clean" on real content, per user
-  feedback).
+- A single confirm blip, played when a section is selected (Enter or a
+  direct click) — nothing plays on cursor movement or during dialogue
+  typing (both were tried and cut: movement/typing blips read as noisy
+  rather than "clean" on real content, per user feedback).
 - Muted by default; a visible mute/unmute toggle persists its state via
   `localStorage`. No autoplay before user interaction.
 
@@ -254,6 +250,21 @@ text; then, after further feedback that it was still annoying, both the
 typing blip and the menu-cursor-move blip were removed entirely, leaving
 only a single confirm blip on selecting/entering a section (see Sound
 above for the current, final behavior).
+
+4. **Reverted to a plain clickable list — the ocean scene was dropped
+   entirely** (not kept as an option): "no just a normal resume but no
+   scenery, clicking would open the exp directly." Explicitly confirmed to
+   keep the retro pixel-art styling (fonts, GBC palette, dialogue boxes)
+   while dropping the game mechanic itself — no ocean, no walking, no
+   aim-and-throw, no decorative sea life. `OceanScene.jsx`,
+   `DiverCharacter.jsx`, and `useViewportSize.js` were all deleted.
+   `MainMenu.jsx` was recreated as a simple `▶`-cursor list (the same
+   pattern as the original pre-town menu — Up/Down/Enter, every item also
+   directly clickable, subtitles retained for clarity), reusing the
+   already-existing `useMenuNavigation` hook. This is the current, final
+   hub design: **Navigation & Screens** above (which already describes
+   this list) reflects it accurately; the ocean/food-throw description
+   there has been superseded by this entry.
 
 ## Deployment
 

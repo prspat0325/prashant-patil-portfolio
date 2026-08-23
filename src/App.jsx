@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion'
 import { useSound } from './hooks/useSound'
 import BootScreen from './components/BootScreen'
-import OceanScene from './components/OceanScene'
+import MainMenu from './components/MainMenu'
 import MuteToggle from './components/MuteToggle'
 import TrainerCardScreen from './components/TrainerCardScreen'
 import PokedexScreen from './components/PokedexScreen'
@@ -43,7 +43,7 @@ export default function App() {
         )}
         {screen === 'menu' && (
           <motion.div key="menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={transition}>
-            <OceanScene onNavigate={setScreen} playBlip={playBlip} prefersReducedMotion={prefersReducedMotion} />
+            <MainMenu onNavigate={setScreen} playBlip={playBlip} />
           </motion.div>
         )}
         {ActiveScreen && (
