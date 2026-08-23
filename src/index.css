@@ -213,6 +213,26 @@ button {
   pointer-events: none;
 }
 
+.ocean-prop {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.92;
+  z-index: 1;
+}
+
+.ocean-critter {
+  animation: swim-drift 3.6s ease-in-out infinite;
+}
+
+@keyframes swim-drift {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(6px) translateY(-3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ocean-critter { animation: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ocean-target-icon.is-aimed { animation: none; }
 }

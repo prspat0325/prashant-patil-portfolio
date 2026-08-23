@@ -14,6 +14,30 @@ const TARGETS = [
 
 const PLAYER_FRACTION = { fx: 0.46, fy: 0.86 }
 
+const SUN = { fx: 0.85, fy: 0.12 }
+
+const FISH = [
+  { fx: 0.06, fy: 0.4, hue: '#f2a65a', flip: false },
+  { fx: 0.24, fy: 0.55, hue: '#4fd1c5', flip: true },
+  { fx: 0.42, fy: 0.68, hue: '#f76e9c', flip: false },
+  { fx: 0.58, fy: 0.42, hue: '#f2a65a', flip: true },
+  { fx: 0.74, fy: 0.6, hue: '#4fd1c5', flip: false },
+  { fx: 0.92, fy: 0.68, hue: '#f76e9c', flip: true },
+  { fx: 0.1, fy: 0.75, hue: '#f2a65a', flip: false },
+]
+
+const SHARK = { fx: 0.06, fy: 0.28 }
+const DOLPHINS = [
+  { fx: 0.63, fy: 0.5 },
+  { fx: 0.9, fy: 0.42, flip: true },
+]
+
+const CORALS = [
+  { fx: 0.05, fy: 0.79, hue: '#e0764a' }, { fx: 0.2, fy: 0.81, hue: '#c94f7c' },
+  { fx: 0.4, fy: 0.8, hue: '#e0764a' }, { fx: 0.6, fy: 0.81, hue: '#7a5fd1' },
+  { fx: 0.78, fy: 0.79, hue: '#c94f7c' }, { fx: 0.94, fy: 0.81, hue: '#e0764a' },
+]
+
 function RaftIcon({ accent, aimed }) {
   return (
     <svg
@@ -24,6 +48,68 @@ function RaftIcon({ accent, aimed }) {
       <rect x="3" y="1" width="1" height="3" fill="#f5f0e6" />
       <rect x="2" y="4" width="4" height="2" fill="#6b4423" />
       <rect x="1" y="5" width="6" height="1" fill="#5a3419" />
+    </svg>
+  )
+}
+
+function Sun() {
+  return (
+    <svg className="pixel-outline" width="90" height="90" viewBox="0 0 12 12" shapeRendering="crispEdges" aria-hidden="true">
+      <rect x="4" y="0" width="4" height="1" fill="#f8d34a" />
+      <rect x="2" y="1" width="8" height="1" fill="#f8d34a" />
+      <rect x="1" y="2" width="10" height="1" fill="#f8d34a" />
+      <rect x="0" y="3" width="12" height="6" fill="#f8d34a" />
+      <rect x="1" y="9" width="10" height="1" fill="#f8d34a" />
+      <rect x="2" y="10" width="8" height="1" fill="#f8d34a" />
+      <rect x="4" y="11" width="4" height="1" fill="#f8d34a" />
+      <rect x="3" y="5" width="4" height="4" fill="#ffe58a" />
+    </svg>
+  )
+}
+
+function FishIcon({ hue }) {
+  return (
+    <svg className="pixel-outline ocean-critter" width="32" height="24" viewBox="0 0 8 6" shapeRendering="crispEdges" aria-hidden="true">
+      <rect x="0" y="2" width="2" height="2" fill={hue} />
+      <rect x="2" y="1" width="4" height="4" fill={hue} />
+      <rect x="6" y="2" width="1" height="1" fill="#1d2b53" />
+      <rect x="3" y="0" width="2" height="1" fill={hue} />
+    </svg>
+  )
+}
+
+function SharkIcon() {
+  return (
+    <svg className="pixel-outline ocean-critter" width="126" height="54" viewBox="0 0 14 6" shapeRendering="crispEdges" aria-hidden="true">
+      <rect x="0" y="2" width="2" height="2" fill="#8fa0ad" />
+      <rect x="2" y="2" width="8" height="2" fill="#7c8a99" />
+      <rect x="5" y="0" width="2" height="2" fill="#5c6d7a" />
+      <rect x="10" y="1" width="3" height="1" fill="#7c8a99" />
+      <rect x="10" y="3" width="3" height="1" fill="#7c8a99" />
+      <rect x="1" y="2" width="1" height="1" fill="#1d2b53" />
+    </svg>
+  )
+}
+
+function DolphinIcon() {
+  return (
+    <svg className="pixel-outline ocean-critter" width="70" height="42" viewBox="0 0 10 6" shapeRendering="crispEdges" aria-hidden="true">
+      <rect x="2" y="2" width="5" height="2" fill="#8fa8bd" />
+      <rect x="6" y="3" width="2" height="1" fill="#8fa8bd" />
+      <rect x="4" y="0" width="1" height="2" fill="#7c93a8" />
+      <rect x="1" y="4" width="2" height="1" fill="#7c93a8" />
+      <rect x="6" y="2" width="1" height="1" fill="#1d2b53" />
+    </svg>
+  )
+}
+
+function CoralIcon({ hue }) {
+  return (
+    <svg className="pixel-outline" width="36" height="36" viewBox="0 0 6 6" shapeRendering="crispEdges" aria-hidden="true">
+      <rect x="2" y="3" width="2" height="3" fill={hue} />
+      <rect x="0" y="1" width="1" height="3" fill={hue} />
+      <rect x="4" y="0" width="1" height="4" fill={hue} />
+      <rect x="1" y="0" width="1" height="2" fill={hue} />
     </svg>
   )
 }
@@ -89,6 +175,38 @@ export default function OceanScene({ onNavigate, playBlip, prefersReducedMotion 
       <div className="ocean-sky" style={{ height: worldHeight * 0.22 }} />
       <div className="ocean-water" style={{ top: worldHeight * 0.22, height: worldHeight * 0.64 }} />
       <div className="ocean-sand" style={{ top: worldHeight * 0.86, height: worldHeight * 0.14 }} />
+
+      <div className="ocean-prop" style={{ left: SUN.fx * worldWidth, top: SUN.fy * worldHeight }}>
+        <Sun />
+      </div>
+
+      {CORALS.map((c, i) => (
+        <div key={`coral-${i}`} className="ocean-prop" style={{ left: c.fx * worldWidth, top: c.fy * worldHeight }}>
+          <CoralIcon hue={c.hue} />
+        </div>
+      ))}
+
+      <div className="ocean-prop" style={{ left: SHARK.fx * worldWidth, top: SHARK.fy * worldHeight }}>
+        <SharkIcon />
+      </div>
+      {DOLPHINS.map((d, i) => (
+        <div
+          key={`dolphin-${i}`}
+          className="ocean-prop"
+          style={{ left: d.fx * worldWidth, top: d.fy * worldHeight, transform: d.flip ? 'scaleX(-1)' : 'none' }}
+        >
+          <DolphinIcon />
+        </div>
+      ))}
+      {FISH.map((f, i) => (
+        <div
+          key={`fish-${i}`}
+          className="ocean-prop"
+          style={{ left: f.fx * worldWidth, top: f.fy * worldHeight, transform: f.flip ? 'scaleX(-1)' : 'none' }}
+        >
+          <FishIcon hue={f.hue} />
+        </div>
+      ))}
 
       {TARGETS.map((t, i) => (
         <button
