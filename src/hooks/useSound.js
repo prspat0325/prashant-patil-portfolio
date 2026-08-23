@@ -20,15 +20,14 @@ export function useSound() {
     return ctxRef.current
   }
 
-  function playBlip(type) {
+  function playBlip() {
     if (muted) return
     const ctx = getContext()
     const osc = ctx.createOscillator()
     const gain = ctx.createGain()
-    const freq = type === 'select' ? 880 : type === 'type' ? 1200 : 660
-    const duration = type === 'type' ? 0.02 : 0.06
+    const duration = 0.06
     osc.type = 'square'
-    osc.frequency.value = freq
+    osc.frequency.value = 880
     gain.gain.setValueAtTime(0.05, ctx.currentTime)
     gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration)
     osc.connect(gain)

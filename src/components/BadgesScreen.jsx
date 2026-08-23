@@ -3,7 +3,7 @@ import DialogueBox from './DialogueBox'
 import DragonCreature from './creatures/DragonCreature'
 import profile from '../data/profile'
 
-export default function BadgesScreen({ onBack, playBlip, prefersReducedMotion }) {
+export default function BadgesScreen({ onBack, prefersReducedMotion }) {
   useBackNavigation(onBack)
   const { experience, certifications } = profile
 
@@ -19,7 +19,6 @@ export default function BadgesScreen({ onBack, playBlip, prefersReducedMotion })
             <p className="font-body badge-dates">{job.dates}</p>
             <DialogueBox
               text={job.bullets.join(' ')}
-              playBlip={playBlip}
               prefersReducedMotion={prefersReducedMotion}
               className="badge-dialogue"
             />

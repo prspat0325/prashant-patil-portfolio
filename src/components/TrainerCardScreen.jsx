@@ -3,7 +3,7 @@ import DialogueBox from './DialogueBox'
 import PsychicCreature from './creatures/PsychicCreature'
 import profile from '../data/profile'
 
-export default function TrainerCardScreen({ onBack, playBlip, prefersReducedMotion }) {
+export default function TrainerCardScreen({ onBack, prefersReducedMotion }) {
   useBackNavigation(onBack)
   const { identity, summary, stats } = profile
 
@@ -14,7 +14,7 @@ export default function TrainerCardScreen({ onBack, playBlip, prefersReducedMoti
       <p className="font-body" style={{ marginBottom: 4 }}>{identity.name} — {identity.title}</p>
       <p className="font-body" style={{ marginTop: 0, opacity: 0.85 }}>{identity.location}</p>
 
-      <DialogueBox text={summary} playBlip={playBlip} prefersReducedMotion={prefersReducedMotion} />
+      <DialogueBox text={summary} prefersReducedMotion={prefersReducedMotion} />
 
       <ul className="font-body stat-list">
         {stats.map((s) => (

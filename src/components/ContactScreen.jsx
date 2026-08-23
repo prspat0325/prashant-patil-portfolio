@@ -12,8 +12,7 @@ export default function ContactScreen({ onBack, playBlip }) {
 
   const { cursorIndex } = useMenuNavigation({
     itemCount: items.length,
-    onMove: () => playBlip('move'),
-    onSelect: (i) => { playBlip('select'); window.open(items[i].href, '_blank') },
+    onSelect: (i) => { playBlip(); window.open(items[i].href, '_blank') },
     onBack,
   })
 
@@ -27,7 +26,7 @@ export default function ContactScreen({ onBack, playBlip }) {
               href={item.href}
               target={item.href.startsWith('http') ? '_blank' : undefined}
               rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
-              onClick={() => playBlip('select')}
+              onClick={() => playBlip()}
               style={{ display: 'block', padding: '14px 12px', color: 'inherit', textDecoration: 'none', fontSize: '11px' }}
             >
               <span className="cursor">{i === cursorIndex ? '▶' : ''}</span> {item.label}

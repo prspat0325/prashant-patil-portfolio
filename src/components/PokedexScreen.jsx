@@ -12,8 +12,7 @@ export default function PokedexScreen({ onBack, playBlip, prefersReducedMotion }
   const { cursorIndex } = useMenuNavigation({
     itemCount: projects.length,
     enabled: openId === null,
-    onMove: () => playBlip('move'),
-    onSelect: (i) => { playBlip('select'); setOpenId(projects[i].id) },
+    onSelect: (i) => { playBlip(); setOpenId(projects[i].id) },
     onBack,
   })
   useBackNavigation(() => (openId ? setOpenId(null) : onBack()), true)
@@ -29,7 +28,7 @@ export default function PokedexScreen({ onBack, playBlip, prefersReducedMotion }
         <ul className="menu-list font-pixel" style={{ maxWidth: 420 }}>
           {projects.map((p, i) => (
             <li key={p.id} className={i === cursorIndex ? 'active' : ''}>
-              <button type="button" onClick={() => { playBlip('select'); setOpenId(p.id) }}>
+              <button type="button" onClick={() => { playBlip(); setOpenId(p.id) }}>
                 <span className="cursor">{i === cursorIndex ? '▶' : ''}</span> No. {p.number} {p.name.toUpperCase()}
               </button>
             </li>
@@ -40,7 +39,7 @@ export default function PokedexScreen({ onBack, playBlip, prefersReducedMotion }
       {openProject && (
         <>
           <p className="font-pixel" style={{ fontSize: '11px' }}>No. {openProject.number} {openProject.name.toUpperCase()}</p>
-          <DialogueBox text={openProject.description} playBlip={playBlip} prefersReducedMotion={prefersReducedMotion} />
+          <DialogueBox text={openProject.description} prefersReducedMotion={prefersReducedMotion} />
           <p className="font-body">Tech: {openProject.tech.join(', ')}</p>
           <a className="font-pixel resume-link" href={openProject.link.url} target="_blank" rel="noreferrer">
             {openProject.link.label.toUpperCase()}

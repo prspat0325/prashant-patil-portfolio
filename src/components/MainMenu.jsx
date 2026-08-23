@@ -13,8 +13,7 @@ const MENU_ITEMS = [
 export default function MainMenu({ onNavigate, playBlip, prefersReducedMotion }) {
   const { cursorIndex } = useMenuNavigation({
     itemCount: MENU_ITEMS.length,
-    onMove: () => playBlip('move'),
-    onSelect: (i) => { playBlip('select'); onNavigate(MENU_ITEMS[i].key) },
+    onSelect: (i) => { playBlip(); onNavigate(MENU_ITEMS[i].key) },
   })
 
   return (
@@ -26,7 +25,7 @@ export default function MainMenu({ onNavigate, playBlip, prefersReducedMotion })
           <li key={item.key} className={i === cursorIndex ? 'active' : ''}>
             <button
               type="button"
-              onClick={() => { playBlip('select'); onNavigate(item.key) }}
+              onClick={() => { playBlip(); onNavigate(item.key) }}
             >
               <span className="cursor">{i === cursorIndex ? '▶' : ''}</span> {item.label}
               <span className="menu-item-subtitle font-body">{item.subtitle}</span>
