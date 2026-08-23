@@ -45,7 +45,7 @@ function RaftIcon({ accent, aimed }) {
   return (
     <svg
       className={`pixel-outline ocean-target-icon ${aimed ? 'is-aimed' : ''}`}
-      width="52" height="42" viewBox="0 0 8 6" shapeRendering="crispEdges" aria-hidden="true"
+      viewBox="0 0 8 6" shapeRendering="crispEdges" aria-hidden="true"
     >
       <rect x="3" y="0" width="3" height="1" fill={accent} />
       <rect x="3" y="1" width="1" height="3" fill="#f5f0e6" />
@@ -57,7 +57,7 @@ function RaftIcon({ accent, aimed }) {
 
 function Sun() {
   return (
-    <svg className="pixel-outline" width="90" height="90" viewBox="0 0 12 12" shapeRendering="crispEdges" aria-hidden="true">
+    <svg className="pixel-outline icon-sun" viewBox="0 0 12 12" shapeRendering="crispEdges" aria-hidden="true">
       <rect x="4" y="0" width="4" height="1" fill="#f8d34a" />
       <rect x="2" y="1" width="8" height="1" fill="#f8d34a" />
       <rect x="1" y="2" width="10" height="1" fill="#f8d34a" />
@@ -72,7 +72,7 @@ function Sun() {
 
 function FishIcon({ hue }) {
   return (
-    <svg className="pixel-outline ocean-critter" width="32" height="24" viewBox="0 0 8 6" shapeRendering="crispEdges" aria-hidden="true">
+    <svg className="pixel-outline ocean-critter icon-fish" viewBox="0 0 8 6" shapeRendering="crispEdges" aria-hidden="true">
       <rect x="0" y="2" width="2" height="2" fill={hue} />
       <rect x="2" y="1" width="4" height="4" fill={hue} />
       <rect x="6" y="2" width="1" height="1" fill="#1d2b53" />
@@ -83,7 +83,7 @@ function FishIcon({ hue }) {
 
 function SharkIcon() {
   return (
-    <svg className="pixel-outline ocean-critter" width="126" height="54" viewBox="0 0 14 6" shapeRendering="crispEdges" aria-hidden="true">
+    <svg className="pixel-outline ocean-critter icon-shark" viewBox="0 0 14 6" shapeRendering="crispEdges" aria-hidden="true">
       <rect x="0" y="2" width="2" height="2" fill="#8fa0ad" />
       <rect x="2" y="2" width="8" height="2" fill="#7c8a99" />
       <rect x="5" y="0" width="2" height="2" fill="#5c6d7a" />
@@ -96,7 +96,7 @@ function SharkIcon() {
 
 function DolphinIcon() {
   return (
-    <svg className="pixel-outline ocean-critter" width="70" height="42" viewBox="0 0 10 6" shapeRendering="crispEdges" aria-hidden="true">
+    <svg className="pixel-outline ocean-critter icon-dolphin" viewBox="0 0 10 6" shapeRendering="crispEdges" aria-hidden="true">
       <rect x="2" y="2" width="5" height="2" fill="#8fa8bd" />
       <rect x="6" y="3" width="2" height="1" fill="#8fa8bd" />
       <rect x="4" y="0" width="1" height="2" fill="#7c93a8" />
@@ -108,7 +108,7 @@ function DolphinIcon() {
 
 function CoralIcon({ hue }) {
   return (
-    <svg className="pixel-outline" width="20" height="20" viewBox="0 0 6 6" shapeRendering="crispEdges" aria-hidden="true">
+    <svg className="pixel-outline icon-coral" viewBox="0 0 6 6" shapeRendering="crispEdges" aria-hidden="true">
       <rect x="2" y="3" width="2" height="3" fill={hue} />
       <rect x="0" y="1" width="1" height="3" fill={hue} />
       <rect x="4" y="0" width="1" height="4" fill={hue} />
@@ -172,7 +172,7 @@ export default function OceanScene({ onNavigate, playBlip, prefersReducedMotion 
     <div className="ocean-scene">
       <div className="town-hud">
         <h1 className="font-pixel town-hud-title">{profile.identity.name.toUpperCase()}</h1>
-        <p className="font-body town-hint">Aim with ← →, throw with Enter/Space — or tap a target directly.</p>
+        <p className="font-body town-hint">Tap a target to open it — or aim with ← → and throw with Enter/Space.</p>
       </div>
 
       <div className="ocean-sky" style={{ height: worldHeight * 0.22 }} />
@@ -195,7 +195,7 @@ export default function OceanScene({ onNavigate, playBlip, prefersReducedMotion 
           top: SHARK.fy * worldHeight,
           animationDuration: `${SHARK.duration}s`,
           animationDelay: `${SHARK.delay}s`,
-          transform: SHARK.dir === 'left' ? 'scaleX(-1)' : 'none',
+          transform: SHARK.dir === 'left' ? 'translate(-50%, -50%) scaleX(-1)' : 'translate(-50%, -50%)',
         }}
       >
         <SharkIcon />
@@ -208,7 +208,7 @@ export default function OceanScene({ onNavigate, playBlip, prefersReducedMotion 
             top: d.fy * worldHeight,
             animationDuration: `${d.duration}s`,
             animationDelay: `${d.delay}s`,
-            transform: d.dir === 'left' ? 'scaleX(-1)' : 'none',
+            transform: d.dir === 'left' ? 'translate(-50%, -50%) scaleX(-1)' : 'translate(-50%, -50%)',
           }}
         >
           <DolphinIcon />
@@ -222,7 +222,7 @@ export default function OceanScene({ onNavigate, playBlip, prefersReducedMotion 
             top: f.fy * worldHeight,
             animationDuration: `${f.duration}s`,
             animationDelay: `${f.delay}s`,
-            transform: f.dir === 'left' ? 'scaleX(-1)' : 'none',
+            transform: f.dir === 'left' ? 'translate(-50%, -50%) scaleX(-1)' : 'translate(-50%, -50%)',
           }}
         >
           <FishIcon hue={f.hue} />
@@ -254,7 +254,7 @@ export default function OceanScene({ onNavigate, playBlip, prefersReducedMotion 
         <motion.div
           className="ocean-food"
           initial={{ left: playerPoint.x - 13, top: playerPoint.y - 44, opacity: 1 }}
-          animate={{ left: targetPoint.x + 12, top: targetPoint.y - 6, opacity: 1 }}
+          animate={{ left: targetPoint.x, top: targetPoint.y, opacity: 1 }}
           transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.45, ease: 'easeOut' }}
           onAnimationComplete={() => onNavigateRef.current(TARGETS[thrown].key)}
         >
