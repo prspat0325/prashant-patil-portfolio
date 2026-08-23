@@ -126,3 +126,40 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .boot-prompt { animation: none; }
 }
+
+.screen-content {
+  gap: 12px;
+  text-align: center;
+}
+
+.stat-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+  text-align: left;
+}
+
+.resume-link, .back-button {
+  font-size: 10px;
+  background: var(--gbc-gold);
+  color: var(--gbc-navy);
+  border: 3px solid var(--gbc-navy);
+  border-radius: 6px;
+  padding: 10px 14px;
+  text-decoration: none;
+  margin-top: 8px;
+}
+
+.back-button { background: var(--gbc-white); }
+
+.creature { image-rendering: pixelated; }
+
+.psychic-creature {
+  animation: float 2.4s ease-in-out infinite;
+}
+.psychic-creature.is-static { animation: none; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
