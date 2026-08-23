@@ -174,3 +174,15 @@ button {
   0%, 100% { transform: translateY(0) translateX(0); }
   50% { transform: translateY(4px) translateX(-3px); }
 }
+
+.moves-list {
+  width: 100%;
+  max-width: 480px;
+  max-height: 60vh;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.move-group { margin-bottom: 16px; }
+.move-group-title { font-size: 10px; color: var(--gbc-gold); margin-bottom: 6px; }
+.move-group ul { margin: 0; padding-left: 18px; }
