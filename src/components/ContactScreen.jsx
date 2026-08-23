@@ -13,6 +13,7 @@ export default function ContactScreen({ onBack, playBlip }) {
 
   const { cursorIndex, moveUp, moveDown, select } = useMenuNavigation({
     itemCount: items.length,
+    onMove: () => playBlip('move'),
     onSelect: (i) => { playBlip(); window.open(items[i].href, '_blank') },
     onBack,
   })

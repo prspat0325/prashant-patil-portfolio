@@ -13,6 +13,7 @@ const MENU_ITEMS = [
 export default function MainMenu({ onNavigate, playBlip }) {
   const { cursorIndex, moveUp, moveDown, select } = useMenuNavigation({
     itemCount: MENU_ITEMS.length,
+    onMove: () => playBlip?.('move'),
     onSelect: (i) => { playBlip?.(); onNavigate(MENU_ITEMS[i].key) },
   })
 

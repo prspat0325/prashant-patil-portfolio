@@ -13,6 +13,7 @@ export default function PokedexScreen({ onBack, playBlip, prefersReducedMotion }
   const { cursorIndex, moveUp, moveDown, select } = useMenuNavigation({
     itemCount: projects.length,
     enabled: openId === null,
+    onMove: () => playBlip('move'),
     onSelect: (i) => { playBlip(); setOpenId(projects[i].id) },
     onBack,
   })

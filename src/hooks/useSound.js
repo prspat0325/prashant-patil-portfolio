@@ -20,15 +20,19 @@ export function useSound() {
     return ctxRef.current
   }
 
-  function playBlip() {
+  function playBlip(type = 'select') {
     if (muted) return
     const ctx = getContext()
     const osc = ctx.createOscillator()
     const gain = ctx.createGain()
-    const duration = 0.06
+    // 'move' is a quick, quiet, higher-pitched tick (cursor navigation) —
+    // deliberately softer than 'select' so it doesn't overwhelm rapid
+    // up/down presses; 'select' is a fuller confirm tone.
+    const isMove = type === 'move'
+    const duration = isMove ? 0.035 : 0.06
     osc.type = 'square'
-    osc.frequency.value = 880
-    gain.gain.setValueAtTime(0.05, ctx.currentTime)
+    osc.frequency.value = isMove ? 1320 : 880
+    gain.gain.setValueAtTime(isMove ? 0.03 : 0.05, ctx.currentTime)
     gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration)
     osc.connect(gain)
     gain.connect(ctx.destination)
