@@ -27,6 +27,19 @@ const BUSHES = [
 
 const SPAWN_FRACTION = { fx: 0.46, fy: 0.78 }
 
+// Hand-aligned to the BUILDINGS layout above — straight dirt-path strips
+// connecting the town square to each building, so it reads as a real town
+// layout rather than icons floating on grass.
+const PATHS = [
+  { fx: 0.05, fy: 0.47, fw: 0.9, fh: 0.06 }, // main street, left-right
+  { fx: 0.08, fy: 0.2, fw: 0.05, fh: 0.28 }, // up to HOUSE
+  { fx: 0.46, fy: 0.16, fw: 0.05, fh: 0.32 }, // up to POKEMON CENTER
+  { fx: 0.82, fy: 0.2, fw: 0.05, fh: 0.28 }, // up to MUSEUM
+  { fx: 0.1, fy: 0.53, fw: 0.05, fh: 0.1 }, // down to GYM
+  { fx: 0.8, fy: 0.53, fw: 0.05, fh: 0.1 }, // down to LIBRARY
+  { fx: 0.46, fy: 0.53, fw: 0.05, fh: 0.3 }, // down to spawn
+]
+
 const ROOF_COLOR = {
   house: '#c0392b',
   pokecenter: '#e85d75',
@@ -42,7 +55,7 @@ function clamp(value, min, max) {
 function BuildingIcon({ kind }) {
   const roof = ROOF_COLOR[kind]
   return (
-    <svg width="64" height="50" viewBox="0 0 10 8" shapeRendering="crispEdges" aria-hidden="true">
+    <svg className="pixel-outline" width="64" height="50" viewBox="0 0 10 8" shapeRendering="crispEdges" aria-hidden="true">
       <rect x="4" y="0" width="2" height="1" fill={roof} />
       <rect x="3" y="1" width="4" height="1" fill={roof} />
       <rect x="2" y="2" width="6" height="1" fill={roof} />
@@ -52,13 +65,15 @@ function BuildingIcon({ kind }) {
       <rect x="6" y="5" width="3" height="2" fill="#f5f0e6" />
       <rect x="4" y="5" width="2" height="2" fill="#1d2b53" />
       <rect x="1" y="7" width="8" height="1" fill="#2b3a6b" />
+      <rect x="2" y="3" width="1" height="1" fill="#a8d8ff" />
+      <rect x="7" y="3" width="1" height="1" fill="#a8d8ff" />
     </svg>
   )
 }
 
 function Tree() {
   return (
-    <svg width="34" height="40" viewBox="0 0 8 10" shapeRendering="crispEdges" aria-hidden="true">
+    <svg className="pixel-outline" width="34" height="40" viewBox="0 0 8 10" shapeRendering="crispEdges" aria-hidden="true">
       <rect x="3" y="7" width="2" height="3" fill="#6b4423" />
       <rect x="1" y="3" width="6" height="1" fill="#3aa66a" />
       <rect x="2" y="4" width="4" height="1" fill="#2f8f5b" />
@@ -70,7 +85,7 @@ function Tree() {
 
 function Bush() {
   return (
-    <svg width="26" height="16" viewBox="0 0 8 5" shapeRendering="crispEdges" aria-hidden="true">
+    <svg className="pixel-outline" width="26" height="16" viewBox="0 0 8 5" shapeRendering="crispEdges" aria-hidden="true">
       <rect x="2" y="0" width="4" height="1" fill="#3aa66a" />
       <rect x="1" y="1" width="6" height="1" fill="#2f8f5b" />
       <rect x="0" y="2" width="8" height="2" fill="#2f8f5b" />
@@ -170,6 +185,19 @@ export default function TownScreen({ onNavigate, playBlip, prefersReducedMotion 
         <h1 className="font-pixel town-hud-title">{profile.identity.name.toUpperCase()}</h1>
         <p className="font-body town-hint">Walk into a building, or tap one directly.</p>
       </div>
+
+      {PATHS.map((p, i) => (
+        <div
+          key={`path-${i}`}
+          className="town-path"
+          style={{
+            left: p.fx * worldWidth,
+            top: p.fy * worldHeight,
+            width: p.fw * worldWidth,
+            height: p.fh * worldHeight,
+          }}
+        />
+      ))}
 
       {TREES.map((t, i) => (
         <div key={`tree-${i}`} className="town-prop" style={{ left: t.fx * worldWidth, top: t.fy * worldHeight }}>
