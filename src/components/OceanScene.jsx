@@ -16,26 +16,29 @@ const PLAYER_FRACTION = { fx: 0.46, fy: 0.86 }
 
 const SUN = { fx: 0.85, fy: 0.12 }
 
+// Swim continuously across the full screen width via CSS animation (see
+// .swim-right/.swim-left in index.css) — fy is the only fixed coordinate;
+// duration/delay stagger them so it reads as a school, not a synced loop.
 const FISH = [
-  { fx: 0.06, fy: 0.4, hue: '#f2a65a', flip: false },
-  { fx: 0.24, fy: 0.55, hue: '#4fd1c5', flip: true },
-  { fx: 0.42, fy: 0.68, hue: '#f76e9c', flip: false },
-  { fx: 0.58, fy: 0.42, hue: '#f2a65a', flip: true },
-  { fx: 0.74, fy: 0.6, hue: '#4fd1c5', flip: false },
-  { fx: 0.92, fy: 0.68, hue: '#f76e9c', flip: true },
-  { fx: 0.1, fy: 0.75, hue: '#f2a65a', flip: false },
+  { fy: 0.4, hue: '#f2a65a', dir: 'right', duration: 13, delay: 0 },
+  { fy: 0.55, hue: '#4fd1c5', dir: 'left', duration: 15, delay: 2 },
+  { fy: 0.68, hue: '#f76e9c', dir: 'right', duration: 11, delay: 5 },
+  { fy: 0.42, hue: '#f2a65a', dir: 'left', duration: 17, delay: 1 },
+  { fy: 0.6, hue: '#4fd1c5', dir: 'right', duration: 14, delay: 7 },
+  { fy: 0.68, hue: '#f76e9c', dir: 'left', duration: 12, delay: 4 },
+  { fy: 0.75, hue: '#f2a65a', dir: 'right', duration: 16, delay: 3 },
 ]
 
-const SHARK = { fx: 0.06, fy: 0.28 }
+const SHARK = { fy: 0.28, dir: 'right', duration: 24, delay: 0 }
 const DOLPHINS = [
-  { fx: 0.63, fy: 0.5 },
-  { fx: 0.9, fy: 0.42, flip: true },
+  { fy: 0.5, dir: 'left', duration: 19, delay: 3 },
+  { fy: 0.44, dir: 'right', duration: 21, delay: 9 },
 ]
 
 const CORALS = [
-  { fx: 0.05, fy: 0.79, hue: '#e0764a' }, { fx: 0.2, fy: 0.81, hue: '#c94f7c' },
-  { fx: 0.4, fy: 0.8, hue: '#e0764a' }, { fx: 0.6, fy: 0.81, hue: '#7a5fd1' },
-  { fx: 0.78, fy: 0.79, hue: '#c94f7c' }, { fx: 0.94, fy: 0.81, hue: '#e0764a' },
+  { fx: 0.05, fy: 0.8, hue: '#e0764a' }, { fx: 0.2, fy: 0.82, hue: '#c94f7c' },
+  { fx: 0.4, fy: 0.81, hue: '#e0764a' }, { fx: 0.6, fy: 0.82, hue: '#7a5fd1' },
+  { fx: 0.78, fy: 0.8, hue: '#c94f7c' }, { fx: 0.94, fy: 0.82, hue: '#e0764a' },
 ]
 
 function RaftIcon({ accent, aimed }) {
@@ -105,7 +108,7 @@ function DolphinIcon() {
 
 function CoralIcon({ hue }) {
   return (
-    <svg className="pixel-outline" width="36" height="36" viewBox="0 0 6 6" shapeRendering="crispEdges" aria-hidden="true">
+    <svg className="pixel-outline" width="20" height="20" viewBox="0 0 6 6" shapeRendering="crispEdges" aria-hidden="true">
       <rect x="2" y="3" width="2" height="3" fill={hue} />
       <rect x="0" y="1" width="1" height="3" fill={hue} />
       <rect x="4" y="0" width="1" height="4" fill={hue} />
@@ -186,14 +189,27 @@ export default function OceanScene({ onNavigate, playBlip, prefersReducedMotion 
         </div>
       ))}
 
-      <div className="ocean-prop" style={{ left: SHARK.fx * worldWidth, top: SHARK.fy * worldHeight }}>
+      <div
+        className={`ocean-prop swim-${SHARK.dir}`}
+        style={{
+          top: SHARK.fy * worldHeight,
+          animationDuration: `${SHARK.duration}s`,
+          animationDelay: `${SHARK.delay}s`,
+          transform: SHARK.dir === 'left' ? 'scaleX(-1)' : 'none',
+        }}
+      >
         <SharkIcon />
       </div>
       {DOLPHINS.map((d, i) => (
         <div
           key={`dolphin-${i}`}
-          className="ocean-prop"
-          style={{ left: d.fx * worldWidth, top: d.fy * worldHeight, transform: d.flip ? 'scaleX(-1)' : 'none' }}
+          className={`ocean-prop swim-${d.dir}`}
+          style={{
+            top: d.fy * worldHeight,
+            animationDuration: `${d.duration}s`,
+            animationDelay: `${d.delay}s`,
+            transform: d.dir === 'left' ? 'scaleX(-1)' : 'none',
+          }}
         >
           <DolphinIcon />
         </div>
@@ -201,8 +217,13 @@ export default function OceanScene({ onNavigate, playBlip, prefersReducedMotion 
       {FISH.map((f, i) => (
         <div
           key={`fish-${i}`}
-          className="ocean-prop"
-          style={{ left: f.fx * worldWidth, top: f.fy * worldHeight, transform: f.flip ? 'scaleX(-1)' : 'none' }}
+          className={`ocean-prop swim-${f.dir}`}
+          style={{
+            top: f.fy * worldHeight,
+            animationDuration: `${f.duration}s`,
+            animationDelay: `${f.delay}s`,
+            transform: f.dir === 'left' ? 'scaleX(-1)' : 'none',
+          }}
         >
           <FishIcon hue={f.hue} />
         </div>
@@ -224,7 +245,7 @@ export default function OceanScene({ onNavigate, playBlip, prefersReducedMotion 
 
       <div
         className="ocean-player"
-        style={{ left: playerPoint.x - 27, top: playerPoint.y - 72 }}
+        style={{ left: playerPoint.x - 20, top: playerPoint.y - 53 }}
       >
         <BoyCharacter facingLeft={false} walking={false} walkPhase={0} prefersReducedMotion={prefersReducedMotion} />
       </div>
@@ -232,7 +253,7 @@ export default function OceanScene({ onNavigate, playBlip, prefersReducedMotion 
       {thrown !== null && targetPoint && (
         <motion.div
           className="ocean-food"
-          initial={{ left: playerPoint.x - 13, top: playerPoint.y - 60, opacity: 1 }}
+          initial={{ left: playerPoint.x - 13, top: playerPoint.y - 44, opacity: 1 }}
           animate={{ left: targetPoint.x + 12, top: targetPoint.y - 6, opacity: 1 }}
           transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.45, ease: 'easeOut' }}
           onAnimationComplete={() => onNavigateRef.current(TARGETS[thrown].key)}

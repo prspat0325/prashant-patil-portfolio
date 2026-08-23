@@ -5,7 +5,7 @@ export default function BoyCharacter({ facingLeft, walking, walkPhase, prefersRe
   return (
     <svg
       className="creature boy-character"
-      width="54" height="72" viewBox="0 0 12 16" shapeRendering="crispEdges"
+      width="40" height="53" viewBox="0 0 12 16" shapeRendering="crispEdges"
       style={{ transform: facingLeft ? 'scaleX(-1)' : 'none' }}
       aria-hidden="true"
     >

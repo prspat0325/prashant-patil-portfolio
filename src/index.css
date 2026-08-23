@@ -201,8 +201,8 @@ button {
 
 .ocean-player {
   position: absolute;
-  width: 54px;
-  height: 72px;
+  width: 40px;
+  height: 53px;
   pointer-events: none;
   z-index: 3;
 }
@@ -220,17 +220,34 @@ button {
   z-index: 1;
 }
 
-.ocean-critter {
-  animation: swim-drift 3.6s ease-in-out infinite;
+/* Cross-screen swimming: the wrapper (.ocean-prop) owns the `left`
+   traversal so it can be combined with a static scaleX flip for
+   direction; the inner icon (.ocean-critter) owns a small independent
+   vertical bob so it doesn't fight the wrapper's transform. */
+.swim-right { animation-name: swim-right; animation-timing-function: linear; animation-iteration-count: infinite; }
+.swim-left { animation-name: swim-left; animation-timing-function: linear; animation-iteration-count: infinite; }
+
+@keyframes swim-right {
+  from { left: -8%; }
+  to { left: 106%; }
+}
+@keyframes swim-left {
+  from { left: 106%; }
+  to { left: -8%; }
 }
 
-@keyframes swim-drift {
-  0%, 100% { transform: translateX(0) translateY(0); }
-  50% { transform: translateX(6px) translateY(-3px); }
+.ocean-critter {
+  animation: swim-bob 2.4s ease-in-out infinite;
+}
+
+@keyframes swim-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ocean-critter { animation: none; }
+  .swim-right, .swim-left { animation: none; left: 50%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
