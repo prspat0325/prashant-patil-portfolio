@@ -232,17 +232,29 @@ export default function OceanScene({ onNavigate, playBlip, prefersReducedMotion 
       </div>
 
       <div className="ocean-sky" style={{ height: worldHeight * 0.22 }} />
-      <div className="ocean-water" style={{ top: worldHeight * 0.22, height: worldHeight * 0.64 }} />
+      <div className="ocean-water" style={{ top: worldHeight * 0.22, height: worldHeight * 0.64 }}>
+        <div className="ocean-light-ray" style={{ left: '10%' }} />
+        <div className="ocean-light-ray" style={{ left: '45%' }} />
+        <div className="ocean-light-ray" style={{ left: '75%' }} />
+      </div>
       <div className="ocean-sand" style={{ top: worldHeight * 0.86, height: worldHeight * 0.14 }} />
 
       <div className="ocean-prop" style={{ left: SUN.fx * worldWidth, top: SUN.fy * worldHeight }}>
         <Sun />
       </div>
 
+      {/* Background cave walls, framing the whole water column */}
       <div className="ocean-prop" style={{ left: 0, top: worldHeight * 0.55, transform: 'translateY(-50%)' }}>
         <CaveWallIcon />
       </div>
       <div className="ocean-prop" style={{ left: worldWidth, top: worldHeight * 0.55, transform: 'translate(-100%, -50%) scaleX(-1)' }}>
+        <CaveWallIcon />
+      </div>
+      {/* Foreground rock layer, closer/larger and lower on screen for a parallax cave-depth feel */}
+      <div className="ocean-prop icon-cave-wall-fg" style={{ left: 0, top: worldHeight * 0.95, transform: 'translateY(-100%)' }}>
+        <CaveWallIcon />
+      </div>
+      <div className="ocean-prop icon-cave-wall-fg" style={{ left: worldWidth, top: worldHeight * 0.95, transform: 'translate(-100%, -100%) scaleX(-1)' }}>
         <CaveWallIcon />
       </div>
 

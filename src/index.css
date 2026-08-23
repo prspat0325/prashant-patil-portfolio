@@ -145,11 +145,22 @@ button {
   position: absolute;
   left: 0;
   right: 0;
+  overflow: hidden;
   background-color: #2f6fb3;
   background-image:
     repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.08) 0px, rgba(255, 255, 255, 0.08) 2px, transparent 2px, transparent 14px),
-    linear-gradient(180deg, #3a86c8, #2a5a95);
+    linear-gradient(180deg, #4a96d8 0%, #2a5a95 55%, #132e52 100%);
   background-size: 100% 14px, 100% 100%;
+}
+
+.ocean-light-ray {
+  position: absolute;
+  top: -10%;
+  width: 12%;
+  height: 130%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 85%);
+  transform: skewX(-12deg);
+  pointer-events: none;
 }
 
 .ocean-sand {
@@ -218,6 +229,7 @@ button {
 .icon-coral { width: clamp(13px, 3vw, 20px); height: auto; }
 .icon-whale { width: clamp(110px, 26vw, 190px); height: auto; }
 .icon-cave-wall { width: clamp(60px, 14vw, 110px); height: clamp(240px, 55vh, 460px); opacity: 0.9; }
+.icon-cave-wall-fg .icon-cave-wall { width: clamp(90px, 20vw, 160px); height: clamp(140px, 30vh, 260px); opacity: 0.75; filter: brightness(0.7); }
 .icon-kelp { width: clamp(18px, 4vw, 28px); height: auto; }
 .icon-clam { width: clamp(36px, 9vw, 56px); height: auto; }
 
