@@ -127,14 +127,39 @@ button {
 
 .menu-list li.active button { background: #b8dfff; }
 
-.town-hint { opacity: 0.75; font-size: 16px; margin: -8px 0 4px; }
-
-.town-world {
-  position: relative;
-  background: #4a8f5c;
-  border: 4px solid var(--gbc-navy);
-  border-radius: 6px;
+.town-screen {
+  position: fixed;
+  inset: 0;
   overflow: hidden;
+  background-color: #4a8f5c;
+  background-image:
+    linear-gradient(45deg, #57a06a 25%, transparent 25%),
+    linear-gradient(-45deg, #57a06a 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #57a06a 75%),
+    linear-gradient(-45deg, transparent 75%, #57a06a 75%);
+  background-size: 32px 32px;
+  background-position: 0 0, 0 16px, 16px -16px, -16px 0px;
+}
+
+.town-hud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  text-align: center;
+  padding: 14px 16px 10px;
+  background: linear-gradient(180deg, rgba(29, 43, 83, 0.75), transparent);
+  pointer-events: none;
+}
+
+.town-hud-title { font-size: clamp(12px, 3vw, 18px); text-shadow: 2px 2px var(--gbc-red); }
+.town-hint { opacity: 0.85; font-size: 15px; margin: 4px 0 0; }
+
+.town-prop {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.9;
 }
 
 .town-building {
@@ -148,16 +173,17 @@ button {
   padding: 0;
 }
 
-.town-building-label { font-size: 7px; color: var(--gbc-white); text-shadow: 1px 1px var(--gbc-navy); }
-.town-building-subtitle { font-size: 12px; color: var(--gbc-white); opacity: 0.85; }
+.town-building-label { font-size: 8px; color: var(--gbc-white); text-shadow: 1px 1px var(--gbc-navy); }
+.town-building-subtitle { font-size: 13px; color: var(--gbc-white); opacity: 0.9; text-shadow: 1px 1px var(--gbc-navy); }
 
 .town-player {
   position: absolute;
   top: 0;
   left: 0;
-  width: 40px;
-  height: 46px;
+  width: 56px;
+  height: 65px;
   pointer-events: none;
+  z-index: 3;
 }
 
 .boy-character.is-walking {
