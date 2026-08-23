@@ -160,12 +160,12 @@ button {
 
 .mascot-perch {
   position: absolute;
-  top: -30px;
+  top: -58px;
   z-index: 3;
   pointer-events: none;
 }
-.mascot-perch-left { left: -14px; transform: scaleX(-1); }
-.mascot-perch-right { right: -14px; }
+.mascot-perch-left { left: -10px; transform: scaleX(-1); }
+.mascot-perch-right { right: -10px; }
 
 .menu-list {
   list-style: none;
