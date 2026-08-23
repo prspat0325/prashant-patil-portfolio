@@ -7,6 +7,7 @@ import MuteToggle from './components/MuteToggle'
 import TrainerCardScreen from './components/TrainerCardScreen'
 import PokedexScreen from './components/PokedexScreen'
 import MovesScreen from './components/MovesScreen'
+import BadgesScreen from './components/BadgesScreen'
 
 export default function App() {
   const [screen, setScreen] = useState('boot')
@@ -27,7 +28,10 @@ export default function App() {
         <PokedexScreen onBack={goToMenu} playBlip={playBlip} prefersReducedMotion={prefersReducedMotion} />
       )}
       {screen === 'moves' && <MovesScreen onBack={goToMenu} />}
-      {screen !== 'boot' && screen !== 'menu' && screen !== 'trainer' && screen !== 'pokedex' && screen !== 'moves' && (
+      {screen === 'badges' && (
+        <BadgesScreen onBack={goToMenu} playBlip={playBlip} prefersReducedMotion={prefersReducedMotion} />
+      )}
+      {screen !== 'boot' && screen !== 'menu' && screen !== 'trainer' && screen !== 'pokedex' && screen !== 'moves' && screen !== 'badges' && (
         <div className="console-frame">
           <p className="font-body">Screen "{screen}" not built yet — press Escape to go back.</p>
         </div>

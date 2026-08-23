@@ -186,3 +186,26 @@ button {
 .move-group { margin-bottom: 16px; }
 .move-group-title { font-size: 10px; color: var(--gbc-gold); margin-bottom: 6px; }
 .move-group ul { margin: 0; padding-left: 18px; }
+
+.badges-list {
+  width: 100%;
+  max-width: 520px;
+  max-height: 60vh;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.badge-card { margin-bottom: 18px; }
+.badge-title { font-size: 11px; color: var(--gbc-gold); margin-bottom: 4px; }
+.badge-dates { margin: 0 0 8px 0; opacity: 0.8; }
+.badge-dialogue { max-width: none; }
+
+.ribbon-list { list-style: none; padding: 0; }
+
+.dragon-creature { animation: streak-in 1.2s ease-out forwards; }
+.dragon-creature.is-static { animation: none; }
+
+@keyframes streak-in {
+  0% { transform: translateX(-40px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
