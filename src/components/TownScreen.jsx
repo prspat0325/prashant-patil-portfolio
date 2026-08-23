@@ -1,13 +1,15 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useViewportSize } from '../hooks/useViewportSize'
 import BoyCharacter from './creatures/BoyCharacter'
 import profile from '../data/profile'
 
-const PLAYER_WIDTH = 56
-const PLAYER_HEIGHT = 65
+const PLAYER_WIDTH = 54
+const PLAYER_HEIGHT = 72
 const ICON_SIZE = { width: 64, height: 50 }
 const SPEED = 0.16 // px per ms
 const ENTER_RADIUS = 30
+const PATH_WIDTH = 26
+const WALK_PHASE_MS = 170
 
 const BUILDINGS = [
   { key: 'trainer', name: 'HOUSE', subtitle: 'About', kind: 'house', fx: 0.06, fy: 0.16 },
@@ -17,28 +19,18 @@ const BUILDINGS = [
   { key: 'moves', name: 'LIBRARY', subtitle: 'Skills', kind: 'library', fx: 0.78, fy: 0.62 },
 ]
 
+// Scattered broadly across the open grass, clear of the path network below.
 const TREES = [
-  { fx: 0.22, fy: 0.42 }, { fx: 0.62, fy: 0.36 }, { fx: 0.3, fy: 0.85 },
-  { fx: 0.68, fy: 0.85 }, { fx: 0.9, fy: 0.46 }, { fx: 0.03, fy: 0.85 },
+  { fx: 0.24, fy: 0.42 }, { fx: 0.6, fy: 0.36 }, { fx: 0.32, fy: 0.9 },
+  { fx: 0.66, fy: 0.9 }, { fx: 0.92, fy: 0.46 }, { fx: 0.02, fy: 0.9 },
+  { fx: 0.16, fy: 0.28 }, { fx: 0.94, fy: 0.85 }, { fx: 0.5, fy: 0.92 },
+  { fx: 0.02, fy: 0.35 }, { fx: 0.72, fy: 0.28 },
 ]
 const BUSHES = [
-  { fx: 0.14, fy: 0.5 }, { fx: 0.5, fy: 0.56 }, { fx: 0.86, fy: 0.32 }, { fx: 0.36, fy: 0.28 },
+  { fx: 0.14, fy: 0.5 }, { fx: 0.5, fy: 0.55 }, { fx: 0.9, fy: 0.32 }, { fx: 0.36, fy: 0.26 },
 ]
 
-const SPAWN_FRACTION = { fx: 0.46, fy: 0.78 }
-
-// Hand-aligned to the BUILDINGS layout above — straight dirt-path strips
-// connecting the town square to each building, so it reads as a real town
-// layout rather than icons floating on grass.
-const PATHS = [
-  { fx: 0.05, fy: 0.47, fw: 0.9, fh: 0.06 }, // main street, left-right
-  { fx: 0.08, fy: 0.2, fw: 0.05, fh: 0.28 }, // up to HOUSE
-  { fx: 0.46, fy: 0.16, fw: 0.05, fh: 0.32 }, // up to POKEMON CENTER
-  { fx: 0.82, fy: 0.2, fw: 0.05, fh: 0.28 }, // up to MUSEUM
-  { fx: 0.1, fy: 0.53, fw: 0.05, fh: 0.1 }, // down to GYM
-  { fx: 0.8, fy: 0.53, fw: 0.05, fh: 0.1 }, // down to LIBRARY
-  { fx: 0.46, fy: 0.53, fw: 0.05, fh: 0.3 }, // down to spawn
-]
+const SPAWN_FRACTION = { fx: 0.46, fy: 0.85 }
 
 const ROOF_COLOR = {
   house: '#c0392b',
@@ -50,6 +42,49 @@ const ROOF_COLOR = {
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value))
+}
+
+function doorPoint(building, worldWidth, worldHeight) {
+  return {
+    x: building.fx * worldWidth + ICON_SIZE.width / 2,
+    y: building.fy * worldHeight + ICON_SIZE.height,
+  }
+}
+
+// Computed straight from live building door positions (not hand-guessed
+// fractions), so the path network stays pixel-accurate at any viewport
+// size: one horizontal "main street" spine, plus a vertical stem from the
+// spine to every building's door and one down to the spawn point. Flowers
+// are placed along each vertical stem's edge.
+function buildTownLayout(worldWidth, worldHeight) {
+  const spineY = worldHeight * 0.5
+  const doors = BUILDINGS.map((b) => ({ key: b.key, ...doorPoint(b, worldWidth, worldHeight) }))
+  const spawnX = SPAWN_FRACTION.fx * worldWidth
+  const spawnY = SPAWN_FRACTION.fy * worldHeight
+
+  const paths = []
+  const flowers = []
+  const half = PATH_WIDTH / 2
+
+  function addStem(x, doorY) {
+    const top = Math.min(doorY, spineY)
+    const height = Math.abs(spineY - doorY)
+    paths.push({ left: x - half, top, width: PATH_WIDTH, height })
+    if (height > 24) {
+      flowers.push({ left: x - half - 14, top: top + height * 0.3 })
+      flowers.push({ left: x + half + 4, top: top + height * 0.65 })
+    }
+  }
+
+  doors.forEach((d) => addStem(d.x, d.y))
+  addStem(spawnX, spawnY)
+
+  const xs = doors.map((d) => d.x).concat(spawnX)
+  const minX = Math.min(...xs)
+  const maxX = Math.max(...xs)
+  paths.unshift({ left: minX - half, top: spineY - half, width: (maxX - minX) + PATH_WIDTH, height: PATH_WIDTH })
+
+  return { paths, flowers }
 }
 
 function BuildingIcon({ kind }) {
@@ -93,6 +128,20 @@ function Bush() {
   )
 }
 
+function Flower({ hue }) {
+  return (
+    <svg className="pixel-outline" width="14" height="14" viewBox="0 0 4 4" shapeRendering="crispEdges" aria-hidden="true">
+      <rect x="1" y="0" width="1" height="1" fill={hue} />
+      <rect x="0" y="1" width="1" height="1" fill={hue} />
+      <rect x="2" y="1" width="1" height="1" fill={hue} />
+      <rect x="1" y="2" width="1" height="1" fill={hue} />
+      <rect x="1" y="1" width="1" height="1" fill="#ffd34a" />
+    </svg>
+  )
+}
+
+const FLOWER_HUES = ['#ff6b81', '#ffffff', '#b98ce8']
+
 export default function TownScreen({ onNavigate, playBlip, prefersReducedMotion }) {
   const { width: worldWidth, height: worldHeight } = useViewportSize()
   const [pos, setPos] = useState(() => ({
@@ -101,6 +150,12 @@ export default function TownScreen({ onNavigate, playBlip, prefersReducedMotion 
   }))
   const [facingLeft, setFacingLeft] = useState(false)
   const [isMoving, setIsMoving] = useState(false)
+  const [walkPhase, setWalkPhase] = useState(0)
+
+  const { paths, flowers } = useMemo(
+    () => buildTownLayout(worldWidth, worldHeight),
+    [worldWidth, worldHeight]
+  )
 
   const onNavigateRef = useRef(onNavigate)
   onNavigateRef.current = onNavigate
@@ -128,6 +183,7 @@ export default function TownScreen({ onNavigate, playBlip, prefersReducedMotion 
     let rafId
     let lastTime = performance.now()
     let entered = false
+    let phaseAccum = 0
 
     function tick(now) {
       const dt = Math.min(now - lastTime, 50)
@@ -145,6 +201,12 @@ export default function TownScreen({ onNavigate, playBlip, prefersReducedMotion 
         if (dx !== 0) setFacingLeft(dx < 0)
         setIsMoving(true)
 
+        phaseAccum += dt
+        if (phaseAccum >= WALK_PHASE_MS) {
+          phaseAccum = 0
+          setWalkPhase((p) => (p === 0 ? 1 : 0))
+        }
+
         setPos((prev) => {
           const nextX = clamp(prev.x + dx, 0, ww - PLAYER_WIDTH)
           const nextY = clamp(prev.y + dy, 0, wh - PLAYER_HEIGHT)
@@ -152,9 +214,8 @@ export default function TownScreen({ onNavigate, playBlip, prefersReducedMotion 
           const centerX = nextX + PLAYER_WIDTH / 2
           const centerY = nextY + PLAYER_HEIGHT / 2
           for (const building of BUILDINGS) {
-            const doorX = building.fx * ww + ICON_SIZE.width / 2
-            const doorY = building.fy * wh + ICON_SIZE.height
-            if (Math.hypot(centerX - doorX, centerY - doorY) < ENTER_RADIUS) {
+            const door = doorPoint(building, ww, wh)
+            if (Math.hypot(centerX - door.x, centerY - door.y) < ENTER_RADIUS) {
               entered = true
               playBlipRef.current?.()
               onNavigateRef.current(building.key)
@@ -166,6 +227,7 @@ export default function TownScreen({ onNavigate, playBlip, prefersReducedMotion 
         })
       } else if (pressed.size === 0) {
         setIsMoving(false)
+        phaseAccum = 0
       }
 
       rafId = requestAnimationFrame(tick)
@@ -186,17 +248,14 @@ export default function TownScreen({ onNavigate, playBlip, prefersReducedMotion 
         <p className="font-body town-hint">Walk into a building, or tap one directly.</p>
       </div>
 
-      {PATHS.map((p, i) => (
-        <div
-          key={`path-${i}`}
-          className="town-path"
-          style={{
-            left: p.fx * worldWidth,
-            top: p.fy * worldHeight,
-            width: p.fw * worldWidth,
-            height: p.fh * worldHeight,
-          }}
-        />
+      {paths.map((p, i) => (
+        <div key={`path-${i}`} className="town-path" style={{ left: p.left, top: p.top, width: p.width, height: p.height }} />
+      ))}
+
+      {flowers.map((f, i) => (
+        <div key={`flower-${i}`} className="town-prop" style={{ left: f.left, top: f.top }}>
+          <Flower hue={FLOWER_HUES[i % FLOWER_HUES.length]} />
+        </div>
       ))}
 
       {TREES.map((t, i) => (
@@ -225,7 +284,12 @@ export default function TownScreen({ onNavigate, playBlip, prefersReducedMotion 
       ))}
 
       <div className="town-player" style={{ transform: `translate(${pos.x}px, ${pos.y}px)` }}>
-        <BoyCharacter facingLeft={facingLeft} walking={isMoving} prefersReducedMotion={prefersReducedMotion} />
+        <BoyCharacter
+          facingLeft={facingLeft}
+          walking={isMoving}
+          walkPhase={walkPhase}
+          prefersReducedMotion={prefersReducedMotion}
+        />
       </div>
     </div>
   )

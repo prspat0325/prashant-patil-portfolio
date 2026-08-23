@@ -189,19 +189,10 @@ button {
   position: absolute;
   top: 0;
   left: 0;
-  width: 56px;
-  height: 65px;
+  width: 54px;
+  height: 72px;
   pointer-events: none;
   z-index: 3;
-}
-
-.boy-character.is-walking {
-  animation: walk-bob 0.35s ease-in-out infinite;
-}
-
-@keyframes walk-bob {
-  0%, 100% { margin-top: 0; }
-  50% { margin-top: -3px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
