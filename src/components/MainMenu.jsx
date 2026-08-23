@@ -1,5 +1,6 @@
 import { useMenuNavigation } from '../hooks/useMenuNavigation'
 import ConsoleDpad from './ConsoleDpad'
+import CatCharacter from './creatures/CatCharacter'
 import profile from '../data/profile'
 
 const MENU_ITEMS = [
@@ -10,7 +11,7 @@ const MENU_ITEMS = [
   { key: 'contact', label: 'CONTACT', subtitle: 'Get in touch' },
 ]
 
-export default function MainMenu({ onNavigate, playBlip }) {
+export default function MainMenu({ onNavigate, playBlip, prefersReducedMotion }) {
   const { cursorIndex, moveUp, moveDown, select } = useMenuNavigation({
     itemCount: MENU_ITEMS.length,
     onMove: () => playBlip?.('move'),
@@ -19,6 +20,7 @@ export default function MainMenu({ onNavigate, playBlip }) {
 
   return (
     <div className="menu-screen">
+      <CatCharacter prefersReducedMotion={prefersReducedMotion} />
       <h1 className="font-pixel menu-title">{profile.identity.name.toUpperCase()}</h1>
       <ul className="menu-list font-pixel">
         {MENU_ITEMS.map((item, i) => (

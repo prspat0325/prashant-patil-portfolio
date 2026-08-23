@@ -1,6 +1,7 @@
 import { useBackNavigation } from '../hooks/useBackNavigation'
 import DialogueBox from './DialogueBox'
 import DragonCreature from './creatures/DragonCreature'
+import DogCharacter from './creatures/DogCharacter'
 import profile from '../data/profile'
 
 export default function BadgesScreen({ onBack, prefersReducedMotion }) {
@@ -10,6 +11,9 @@ export default function BadgesScreen({ onBack, prefersReducedMotion }) {
   return (
     <div className="console-frame screen-content">
       <DragonCreature prefersReducedMotion={prefersReducedMotion} />
+      <div className={`dog-roam ${prefersReducedMotion ? 'is-static' : ''}`}>
+        <DogCharacter prefersReducedMotion={prefersReducedMotion} />
+      </div>
       <h2 className="font-pixel" style={{ fontSize: '14px' }}>BADGES</h2>
 
       <div className="badges-list">

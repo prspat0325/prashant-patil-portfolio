@@ -242,6 +242,27 @@ button {
 }
 .leviathan-creature.is-static { animation: none; }
 
+.cat-tail { animation: tail-swish 1.2s ease-in-out infinite; }
+@keyframes tail-swish {
+  0%, 100% { transform: rotate(-15deg); }
+  50% { transform: rotate(15deg); }
+}
+.cat-character.is-static .cat-tail { animation: none; }
+
+.dog-tail { animation: tail-wag 0.5s ease-in-out infinite; }
+@keyframes tail-wag {
+  0%, 100% { transform: rotate(-20deg); }
+  50% { transform: rotate(20deg); }
+}
+.dog-character.is-static .dog-tail { animation: none; }
+
+.dog-roam { animation: roam 6s ease-in-out infinite; }
+@keyframes roam {
+  0%, 100% { transform: translateX(-24px); }
+  50% { transform: translateX(24px); }
+}
+.dog-roam.is-static { animation: none; }
+
 @keyframes bob {
   0%, 100% { transform: translateY(0) translateX(0); }
   50% { transform: translateY(4px) translateX(-3px); }
