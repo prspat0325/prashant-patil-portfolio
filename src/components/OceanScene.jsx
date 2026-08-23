@@ -41,6 +41,14 @@ const CORALS = [
   { fx: 0.78, fy: 0.8, hue: '#c94f7c' }, { fx: 0.94, fy: 0.82, hue: '#e0764a' },
 ]
 
+const KELP = [
+  { fx: 0.15, fy: 0.78 }, { fx: 0.3, fy: 0.79 }, { fx: 0.68, fy: 0.78 }, { fx: 0.87, fy: 0.79 },
+]
+
+const CLAM = { fx: 0.5, fy: 0.83 }
+
+const WHALE = { fy: 0.16, dir: 'left', duration: 34, delay: 0 }
+
 function RaftIcon({ accent, aimed }) {
   return (
     <svg
@@ -117,6 +125,54 @@ function CoralIcon({ hue }) {
   )
 }
 
+function WhaleIcon() {
+  return (
+    <svg className="pixel-outline ocean-critter icon-whale" viewBox="0 0 18 8" shapeRendering="crispEdges" aria-hidden="true">
+      <rect x="0" y="3" width="2" height="2" fill="#4a6b91" />
+      <rect x="2" y="2" width="10" height="3" fill="#5c7fa8" />
+      <rect x="3" y="5" width="8" height="1" fill="#8fa8c4" />
+      <rect x="12" y="2" width="3" height="2" fill="#5c7fa8" />
+      <rect x="6" y="0" width="2" height="2" fill="#4a6b91" />
+      <rect x="13" y="2" width="1" height="1" fill="#1d2b53" />
+    </svg>
+  )
+}
+
+function CaveWallIcon() {
+  return (
+    <svg className="pixel-outline icon-cave-wall" viewBox="0 0 6 24" shapeRendering="crispEdges" aria-hidden="true">
+      <rect x="0" y="0" width="4" height="4" fill="#4a3a63" />
+      <rect x="0" y="4" width="6" height="4" fill="#5c4a78" />
+      <rect x="0" y="8" width="3" height="4" fill="#4a3a63" />
+      <rect x="0" y="12" width="5" height="5" fill="#5c4a78" />
+      <rect x="0" y="17" width="4" height="4" fill="#4a3a63" />
+      <rect x="0" y="21" width="6" height="3" fill="#5c4a78" />
+    </svg>
+  )
+}
+
+function KelpIcon() {
+  return (
+    <svg className="pixel-outline icon-kelp" viewBox="0 0 4 12" shapeRendering="crispEdges" aria-hidden="true">
+      <rect x="1" y="9" width="2" height="3" fill="#1e6b41" />
+      <rect x="0" y="6" width="2" height="3" fill="#2f8f5b" />
+      <rect x="2" y="3" width="2" height="3" fill="#2f8f5b" />
+      <rect x="1" y="0" width="2" height="3" fill="#3aa66a" />
+    </svg>
+  )
+}
+
+function ClamIcon() {
+  return (
+    <svg className="pixel-outline icon-clam" viewBox="0 0 10 6" shapeRendering="crispEdges" aria-hidden="true">
+      <rect x="0" y="2" width="10" height="3" fill="#a86fc9" />
+      <rect x="1" y="1" width="8" height="1" fill="#c48fe0" />
+      <rect x="4" y="0" width="2" height="2" fill="#f5f0e6" />
+      <rect x="0" y="5" width="10" height="1" fill="#7a4fa0" />
+    </svg>
+  )
+}
+
 function FoodIcon() {
   return (
     <svg className="pixel-outline" width="26" height="26" viewBox="0 0 4 4" shapeRendering="crispEdges" aria-hidden="true">
@@ -183,11 +239,38 @@ export default function OceanScene({ onNavigate, playBlip, prefersReducedMotion 
         <Sun />
       </div>
 
+      <div className="ocean-prop" style={{ left: 0, top: worldHeight * 0.55, transform: 'translateY(-50%)' }}>
+        <CaveWallIcon />
+      </div>
+      <div className="ocean-prop" style={{ left: worldWidth, top: worldHeight * 0.55, transform: 'translate(-100%, -50%) scaleX(-1)' }}>
+        <CaveWallIcon />
+      </div>
+
       {CORALS.map((c, i) => (
         <div key={`coral-${i}`} className="ocean-prop" style={{ left: c.fx * worldWidth, top: c.fy * worldHeight }}>
           <CoralIcon hue={c.hue} />
         </div>
       ))}
+      {KELP.map((k, i) => (
+        <div key={`kelp-${i}`} className="ocean-prop" style={{ left: k.fx * worldWidth, top: k.fy * worldHeight }}>
+          <KelpIcon />
+        </div>
+      ))}
+      <div className="ocean-prop" style={{ left: CLAM.fx * worldWidth, top: CLAM.fy * worldHeight }}>
+        <ClamIcon />
+      </div>
+
+      <div
+        className={`ocean-prop swim-${WHALE.dir}`}
+        style={{
+          top: WHALE.fy * worldHeight,
+          animationDuration: `${WHALE.duration}s`,
+          animationDelay: `${WHALE.delay}s`,
+          transform: WHALE.dir === 'left' ? 'translate(-50%, -50%) scaleX(-1)' : 'translate(-50%, -50%)',
+        }}
+      >
+        <WhaleIcon />
+      </div>
 
       <div
         className={`ocean-prop swim-${SHARK.dir}`}

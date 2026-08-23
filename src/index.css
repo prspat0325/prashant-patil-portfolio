@@ -216,6 +216,10 @@ button {
 .icon-shark { width: clamp(72px, 18vw, 126px); height: auto; }
 .icon-dolphin { width: clamp(42px, 10vw, 70px); height: auto; }
 .icon-coral { width: clamp(13px, 3vw, 20px); height: auto; }
+.icon-whale { width: clamp(110px, 26vw, 190px); height: auto; }
+.icon-cave-wall { width: clamp(60px, 14vw, 110px); height: clamp(240px, 55vh, 460px); opacity: 0.9; }
+.icon-kelp { width: clamp(18px, 4vw, 28px); height: auto; }
+.icon-clam { width: clamp(36px, 9vw, 56px); height: auto; }
 
 .ocean-target-icon.is-aimed {
   animation: aim-bob 0.6s ease-in-out infinite;
