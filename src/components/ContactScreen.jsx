@@ -1,4 +1,5 @@
 import { useMenuNavigation } from '../hooks/useMenuNavigation'
+import ConsoleDpad from './ConsoleDpad'
 import profile from '../data/profile'
 
 export default function ContactScreen({ onBack, playBlip }) {
@@ -10,7 +11,7 @@ export default function ContactScreen({ onBack, playBlip }) {
     { label: 'GITHUB', href: identity.github },
   ]
 
-  const { cursorIndex } = useMenuNavigation({
+  const { cursorIndex, moveUp, moveDown, select } = useMenuNavigation({
     itemCount: items.length,
     onSelect: (i) => { playBlip(); window.open(items[i].href, '_blank') },
     onBack,
@@ -37,6 +38,7 @@ export default function ContactScreen({ onBack, playBlip }) {
       <button type="button" className="font-pixel back-button" onClick={onBack}>
         ◀ BACK
       </button>
+      <ConsoleDpad onUp={moveUp} onDown={moveDown} onSelect={select} />
     </div>
   )
 }

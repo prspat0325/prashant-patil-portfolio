@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useMenuNavigation } from '../hooks/useMenuNavigation'
 import { useBackNavigation } from '../hooks/useBackNavigation'
 import DialogueBox from './DialogueBox'
+import ConsoleDpad from './ConsoleDpad'
 import LeviathanCreature from './creatures/LeviathanCreature'
 import profile from '../data/profile'
 
@@ -9,7 +10,7 @@ export default function PokedexScreen({ onBack, playBlip, prefersReducedMotion }
   const [openId, setOpenId] = useState(null)
   const { projects } = profile
 
-  const { cursorIndex } = useMenuNavigation({
+  const { cursorIndex, moveUp, moveDown, select } = useMenuNavigation({
     itemCount: projects.length,
     enabled: openId === null,
     onSelect: (i) => { playBlip(); setOpenId(projects[i].id) },
@@ -55,6 +56,7 @@ export default function PokedexScreen({ onBack, playBlip, prefersReducedMotion }
           ◀ BACK TO MENU
         </button>
       )}
+      {!openProject && <ConsoleDpad onUp={moveUp} onDown={moveDown} onSelect={select} />}
     </div>
   )
 }

@@ -35,8 +35,60 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 24px 16px;
+  padding: 24px 16px 96px;
 }
+
+.console-dpad {
+  position: fixed;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+.dpad-cross {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.dpad-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 26px;
+  background: var(--gbc-navy-light);
+  border: 3px solid var(--gbc-navy);
+  color: var(--gbc-white);
+  font-size: 12px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dpad-btn:active { background: var(--gbc-navy); }
+
+.dpad-up { top: 0; }
+.dpad-down { bottom: 0; }
+
+.dpad-a {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--gbc-red);
+  border: 3px solid var(--gbc-navy);
+  color: var(--gbc-white);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+}
+
+.dpad-a:active { filter: brightness(0.85); }
 
 .dialogue-box {
   background: var(--gbc-white);
@@ -95,7 +147,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 24px;
-  padding: 16px;
+  padding: 16px 16px 96px;
 }
 
 .menu-title { font-size: clamp(14px, 3vw, 20px); text-shadow: 2px 2px var(--gbc-red); }

@@ -1,4 +1,5 @@
 import { useMenuNavigation } from '../hooks/useMenuNavigation'
+import ConsoleDpad from './ConsoleDpad'
 import profile from '../data/profile'
 
 const MENU_ITEMS = [
@@ -10,7 +11,7 @@ const MENU_ITEMS = [
 ]
 
 export default function MainMenu({ onNavigate, playBlip }) {
-  const { cursorIndex } = useMenuNavigation({
+  const { cursorIndex, moveUp, moveDown, select } = useMenuNavigation({
     itemCount: MENU_ITEMS.length,
     onSelect: (i) => { playBlip?.(); onNavigate(MENU_ITEMS[i].key) },
   })
@@ -31,6 +32,10 @@ export default function MainMenu({ onNavigate, playBlip }) {
           </li>
         ))}
       </ul>
+      <a className="font-pixel resume-link" href="/resume-prashant-patil.pdf" download>
+        DOWNLOAD RESUME
+      </a>
+      <ConsoleDpad onUp={moveUp} onDown={moveDown} onSelect={select} />
     </div>
   )
 }
