@@ -86,10 +86,12 @@ All copy is sourced directly from `Prashant_Patil_Resume_DevOpsEngineer`
 ## Navigation & Screens
 
 1. **Boot screen** — "PRASHANT PATIL" title card with a blinking "PRESS
-   START" prompt. Click or any keypress advances to the main menu.
-2. **Main menu** — a vertical list with a `▶` cursor. Each item shows a
-   small subtitle under its game-style label (added after initial user
-   feedback that the game terminology alone was unclear):
+   START" prompt. Click or any keypress advances to the main hub.
+2. **Main hub — walkable town** (revised from a vertical menu list, per
+   user feedback; see "Hub Screen Revision History" below). Selecting a
+   section still maps to the same five keys/screens, each with a subtitle
+   for clarity (added after initial feedback that the game terminology
+   alone was unclear):
    - **TRAINER CARD** ("About") — bio, title, location, a few stat callouts
      drawn from the resume summary (years of experience, specialty areas),
      and a resume PDF download button.
@@ -104,17 +106,24 @@ All copy is sourced directly from `Prashant_Patil_Resume_DevOpsEngineer`
    - **CONTACT** ("Get in touch") — email / phone / LinkedIn / GitHub as a
      selectable list; selecting one opens `mailto:`/`tel:`/the external
      profile link.
-3. Selecting a main-menu item triggers a screen-wipe transition into that
-   section. A `B`-equivalent control (on-screen button, plus Escape/
-   Backspace) returns to the main menu.
+3. Entering a section (walking into its building in the town, or selecting
+   it in a sub-screen's own list) triggers a screen-wipe transition. A
+   `B`-equivalent control (on-screen button, plus Escape/Backspace) returns
+   to the town from any section; within POKEDEX/CONTACT, the same keys
+   step back through that screen's own list first.
 4. Dialogue-box body text types itself out letter-by-letter.
 
 ### Interaction model
 
-- **Keyboard**: Up/Down moves the cursor, Enter/Space selects, Escape/
-  Backspace goes back — a blip sound plays on move and on select.
-- **Mouse/touch**: every menu item and control is also directly clickable/
-  tappable — keyboard nav is additive, not a requirement to use the site.
+- **Town hub**: Arrow keys walk the character continuously (held-key,
+  frame-driven movement, not single-step); walking into a building's door
+  radius enters that section. Every building is also a real `<button>`,
+  directly clickable/tappable, so mouse/touch users reach every section
+  without needing the keyboard — walking is additive flavor, not a
+  requirement.
+- **Sub-screen lists** (POKEDEX, CONTACT): Up/Down moves a `▶` cursor,
+  Enter/Space selects, Escape/Backspace goes back. Every item is also
+  directly clickable/tappable.
 - Underlying markup is real semantic HTML (headings, links, buttons) styled
   to look like a game UI — not a canvas/game-engine reimplementation — so
   links are copyable, text is selectable, and the site remains usable by
@@ -122,8 +131,11 @@ All copy is sourced directly from `Prashant_Patil_Resume_DevOpsEngineer`
 
 ### Sound
 
-- Menu-move blip, menu-select blip, and a soft typing blip during dialogue
-  text reveal.
+- A single confirm blip, played when a section is entered (walking into a
+  building, or clicking a building/list item) — nothing plays on cursor
+  movement or during dialogue typing (both were tried and cut: movement/
+  typing blips read as noisy rather than "clean" on real content, per user
+  feedback).
 - Muted by default; a visible mute/unmute toggle persists its state via
   `localStorage`. No autoplay before user interaction.
 
@@ -154,13 +166,52 @@ original-only decision.)
 - A deep-sea leviathan-styled creature (`LeviathanCreature`), redrawn with
   a rounded body, dorsal fin, and tail fluke, with a slow bobbing loop in
   the background of the **POKEDEX** screen.
-- A fourth original mascot (`MenuCompanion`) was added on the **main
-  menu** screen, which previously had no creature at all and read as
-  visually empty — a small original blob-style character with its own
-  color palette, floating beside the menu list.
+- A fourth original mascot (`BoyCharacter`) is the player-controlled
+  character in the walkable town hub (superseding an earlier static
+  `MenuCompanion` blob that stood next to the old menu list — see
+  "Hub Screen Revision History" below) — walks via arrow keys, flips to
+  face its direction of travel, and bobs while moving.
 
 All four are decorative, sized to have real presence without overwhelming
 the resume content, and all freeze under `prefers-reduced-motion`.
+
+## Hub Screen Revision History
+
+The main hub was originally a vertical list menu (`MainMenu.jsx`, built in
+the initial plan). After using the deployed site, the user asked for two
+follow-up changes to the hub specifically:
+
+1. Subtitles under each menu label, since the game terminology alone
+   ("POKEDEX", "BADGES") didn't make clear what content was behind it —
+   implemented as a second line per item (see Navigation & Screens above).
+2. A walkable overworld: "guide him to house/park/museum ... where my
+   skills are located" — replacing the list entirely with a small town the
+   `BoyCharacter` walks around, each building mapped to one of the same
+   five sections:
+
+   | Building | Section |
+   |---|---|
+   | House | TRAINER CARD (About) |
+   | Pokemon Center | CONTACT |
+   | Museum | POKEDEX (Projects) |
+   | Gym | BADGES (Experience) |
+   | Library | MOVES (Skills) |
+
+   `MainMenu.jsx` and its `MenuCompanion` mascot were deleted (fully
+   superseded, not kept as an alternate mode) in favor of `TownScreen.jsx`.
+   Walking is arrow-key driven (continuous, held-key movement via
+   `requestAnimationFrame`, not single-step); every building remains a
+   real, directly clickable `<button>` so the mouse/touch parity
+   requirement in Global Constraints still holds without needing an
+   on-screen d-pad.
+
+Separately, sound was simplified twice based on direct feedback: first the
+per-character typing blip was throttled (skip spaces, every other
+character) because it became a "machine gun" on Badges' long joined bullet
+text; then, after further feedback that it was still annoying, both the
+typing blip and the menu-cursor-move blip were removed entirely, leaving
+only a single confirm blip on selecting/entering a section (see Sound
+above for the current, final behavior).
 
 ## Deployment
 

@@ -127,16 +127,47 @@ button {
 
 .menu-list li.active button { background: #b8dfff; }
 
-.menu-item-subtitle {
-  font-size: 13px;
-  opacity: 0.65;
-  padding-left: 16px;
+.town-hint { opacity: 0.75; font-size: 16px; margin: -8px 0 4px; }
+
+.town-world {
+  position: relative;
+  background: #4a8f5c;
+  border: 4px solid var(--gbc-navy);
+  border-radius: 6px;
+  overflow: hidden;
 }
 
-.menu-companion {
-  animation: float 2.4s ease-in-out infinite;
+.town-building {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  padding: 0;
 }
-.menu-companion.is-static { animation: none; }
+
+.town-building-label { font-size: 7px; color: var(--gbc-white); text-shadow: 1px 1px var(--gbc-navy); }
+.town-building-subtitle { font-size: 12px; color: var(--gbc-white); opacity: 0.85; }
+
+.town-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 46px;
+  pointer-events: none;
+}
+
+.boy-character.is-walking {
+  animation: walk-bob 0.35s ease-in-out infinite;
+}
+
+@keyframes walk-bob {
+  0%, 100% { margin-top: 0; }
+  50% { margin-top: -3px; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .boot-prompt { animation: none; }
