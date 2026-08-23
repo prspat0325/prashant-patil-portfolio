@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useViewportSize } from '../hooks/useViewportSize'
-import BoyCharacter from './creatures/BoyCharacter'
+import DiverCharacter from './creatures/DiverCharacter'
 import profile from '../data/profile'
 
 const TARGETS = [
@@ -330,7 +330,7 @@ export default function OceanScene({ onNavigate, playBlip, prefersReducedMotion 
         className="ocean-player"
         style={{ left: playerPoint.x - 20, top: playerPoint.y - 53 }}
       >
-        <BoyCharacter facingLeft={false} walking={false} walkPhase={0} prefersReducedMotion={prefersReducedMotion} />
+        <DiverCharacter facingLeft={false} walking={false} walkPhase={0} prefersReducedMotion={prefersReducedMotion} />
       </div>
 
       {thrown !== null && targetPoint && (
