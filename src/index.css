@@ -163,3 +163,14 @@ button {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
 }
+
+.leviathan-creature {
+  animation: bob 3.2s ease-in-out infinite;
+  opacity: 0.85;
+}
+.leviathan-creature.is-static { animation: none; }
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(4px) translateX(-3px); }
+}
