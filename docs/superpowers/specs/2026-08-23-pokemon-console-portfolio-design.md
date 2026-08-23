@@ -87,18 +87,23 @@ All copy is sourced directly from `Prashant_Patil_Resume_DevOpsEngineer`
 
 1. **Boot screen** — "PRASHANT PATIL" title card with a blinking "PRESS
    START" prompt. Click or any keypress advances to the main menu.
-2. **Main menu** — a vertical list with a `▶` cursor:
-   - **TRAINER CARD** — bio, title, location, a few stat callouts drawn from
-     the resume summary (years of experience, specialty areas), and a
-     resume PDF download button.
-   - **POKEDEX** — the three projects as numbered entries (No. 001, 002,
-     003); selecting one opens a detail card (description, tech stack,
-     link) in the same dialogue-box style.
-   - **MOVES** — skills as a grouped move list (see grouping above).
-   - **BADGES** — work experience as earned badges (company, role, dates,
-     achievement bullets), certifications as smaller ribbon badges below.
-   - **CONTACT** — email / phone / LinkedIn / GitHub as a selectable list;
-     selecting one opens `mailto:`/`tel:`/the external profile link.
+2. **Main menu** — a vertical list with a `▶` cursor. Each item shows a
+   small subtitle under its game-style label (added after initial user
+   feedback that the game terminology alone was unclear):
+   - **TRAINER CARD** ("About") — bio, title, location, a few stat callouts
+     drawn from the resume summary (years of experience, specialty areas),
+     and a resume PDF download button.
+   - **POKEDEX** ("Projects") — the three projects as numbered entries
+     (No. 001, 002, 003); selecting one opens a detail card (description,
+     tech stack, link) in the same dialogue-box style.
+   - **MOVES** ("Skills") — skills as a grouped move list (see grouping
+     above).
+   - **BADGES** ("Experience") — work experience as earned badges (company,
+     role, dates, achievement bullets), certifications as smaller ribbon
+     badges below.
+   - **CONTACT** ("Get in touch") — email / phone / LinkedIn / GitHub as a
+     selectable list; selecting one opens `mailto:`/`tel:`/the external
+     profile link.
 3. Selecting a main-menu item triggers a screen-wipe transition into that
    section. A `B`-equivalent control (on-screen button, plus Escape/
    Backspace) returns to the main menu.
@@ -133,18 +138,29 @@ All copy is sourced directly from `Prashant_Patil_Resume_DevOpsEngineer`
 
 Per explicit direction, these are **original designs inspired by** (not
 reproductions of) Mewtwo, Rayquaza, and Kyogre, to avoid using Nintendo/
-Game Freak's copyrighted character art on a public, real-name-attached site:
+Game Freak's copyrighted character art on a public, real-name-attached site.
+(This was revisited once, mid-build, when the user asked for the actual
+copyrighted designs instead — that request was explicitly reversed in the
+same conversation, back to original-only, after a second confirmation of
+the trademark/copyright risk. The mascots below reflect the final,
+original-only decision.)
 
-- A psychic-styled purple biped, idling/blinking in a corner of the
-  **TRAINER CARD** screen.
-- A serpentine dragon-styled creature that streaks across once on entering
-  the **BADGES** screen, then idles.
-- A deep-sea leviathan-styled creature with a slow bobbing loop in the
-  background of the **POKEDEX** screen.
+- A psychic-styled biped (`PsychicCreature`), redrawn with a larger,
+  more detailed pixel silhouette — ears, big eyes, a distinct body/leg
+  shape — idling/floating in a corner of the **TRAINER CARD** screen.
+- A serpentine dragon-styled creature (`DragonCreature`), similarly
+  enlarged with a clearer head/wing/tail silhouette, that streaks across
+  once on entering the **BADGES** screen, then idles.
+- A deep-sea leviathan-styled creature (`LeviathanCreature`), redrawn with
+  a rounded body, dorsal fin, and tail fluke, with a slow bobbing loop in
+  the background of the **POKEDEX** screen.
+- A fourth original mascot (`MenuCompanion`) was added on the **main
+  menu** screen, which previously had no creature at all and read as
+  visually empty — a small original blob-style character with its own
+  color palette, floating beside the menu list.
 
-All three are small, low-opacity, and decorative — they must never compete
-with or obscure the actual resume content, and all freeze under
-`prefers-reduced-motion`.
+All four are decorative, sized to have real presence without overwhelming
+the resume content, and all freeze under `prefers-reduced-motion`.
 
 ## Deployment
 

@@ -113,6 +113,10 @@ button {
 
 .menu-list li button {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
   text-align: left;
   background: none;
   border: none;
@@ -122,6 +126,17 @@ button {
 }
 
 .menu-list li.active button { background: #b8dfff; }
+
+.menu-item-subtitle {
+  font-size: 13px;
+  opacity: 0.65;
+  padding-left: 16px;
+}
+
+.menu-companion {
+  animation: float 2.4s ease-in-out infinite;
+}
+.menu-companion.is-static { animation: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .boot-prompt { animation: none; }

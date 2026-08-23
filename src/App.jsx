@@ -43,7 +43,7 @@ export default function App() {
         )}
         {screen === 'menu' && (
           <motion.div key="menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={transition}>
-            <MainMenu onNavigate={setScreen} playBlip={playBlip} />
+            <MainMenu onNavigate={setScreen} playBlip={playBlip} prefersReducedMotion={prefersReducedMotion} />
           </motion.div>
         )}
         {ActiveScreen && (
