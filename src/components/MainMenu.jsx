@@ -3,6 +3,7 @@ import ConsoleDpad from './ConsoleDpad'
 import CatCharacter from './creatures/CatCharacter'
 import DogCharacter from './creatures/DogCharacter'
 import profile from '../data/profile'
+import labels from '../data/labels'
 
 const MENU_ITEMS = [
   { key: 'trainer', label: 'TRAINER CARD', subtitle: 'About' },
@@ -21,7 +22,10 @@ export default function MainMenu({ onNavigate, playBlip, prefersReducedMotion })
 
   return (
     <div className="menu-screen">
-      <h1 className="font-pixel menu-title">{profile.identity.name.toUpperCase()}</h1>
+      <div className="title-row">
+        <h1 className="font-pixel menu-title">{profile.identity.name.toUpperCase()}</h1>
+        <span className="hanko-seal font-jp" title="craftsman">匠</span>
+      </div>
       <div className="menu-list-wrap">
         <div className="mascot-perch mascot-perch-left">
           <CatCharacter prefersReducedMotion={prefersReducedMotion} />
@@ -38,13 +42,16 @@ export default function MainMenu({ onNavigate, playBlip, prefersReducedMotion })
               >
                 <span className="cursor">{i === cursorIndex ? '▶' : ''}</span> {item.label}
                 <span className="menu-item-subtitle font-body">{item.subtitle}</span>
+                <span className="menu-item-subtitle font-jp">{labels.menu[item.key]}</span>
               </button>
             </li>
           ))}
         </ul>
+        <div className="wave-trim" aria-hidden="true" />
       </div>
       <a className="font-pixel resume-link" href="/resume-prashant-patil.pdf" download>
         DOWNLOAD RESUME
+        <span className="font-jp jp-gloss">{labels.downloadResume}</span>
       </a>
       <ConsoleDpad onUp={moveUp} onDown={moveDown} onSelect={select} />
     </div>

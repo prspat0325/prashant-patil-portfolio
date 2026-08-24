@@ -5,6 +5,7 @@ import DialogueBox from './DialogueBox'
 import ConsoleDpad from './ConsoleDpad'
 import LeviathanCreature from './creatures/LeviathanCreature'
 import profile from '../data/profile'
+import labels from '../data/labels'
 
 export default function PokedexScreen({ onBack, playBlip, prefersReducedMotion }) {
   const [openId, setOpenId] = useState(null)
@@ -25,6 +26,7 @@ export default function PokedexScreen({ onBack, playBlip, prefersReducedMotion }
     <div className="console-frame screen-content">
       <LeviathanCreature prefersReducedMotion={prefersReducedMotion} />
       <h2 className="font-pixel" style={{ fontSize: '14px' }}>POKEDEX</h2>
+      <p className="font-jp jp-gloss" style={{ margin: 0 }}>{labels.screens.pokedex}</p>
 
       {!openProject && (
         <ul className="menu-list font-pixel">
@@ -48,6 +50,7 @@ export default function PokedexScreen({ onBack, playBlip, prefersReducedMotion }
           </a>
           <button type="button" className="font-pixel back-button" onClick={() => setOpenId(null)}>
             ◀ BACK TO LIST
+            <span className="font-jp jp-gloss">{labels.backToList}</span>
           </button>
         </>
       )}
@@ -55,6 +58,7 @@ export default function PokedexScreen({ onBack, playBlip, prefersReducedMotion }
       {!openProject && (
         <button type="button" className="font-pixel back-button" onClick={onBack}>
           ◀ BACK TO MENU
+          <span className="font-jp jp-gloss">{labels.back}</span>
         </button>
       )}
       {!openProject && <ConsoleDpad onUp={moveUp} onDown={moveDown} onSelect={select} />}

@@ -4,7 +4,8 @@
   --gbc-gold: #f8d34a;
   --gbc-white: #ffffff;
   --gbc-text: #1d2b53;
-  --gbc-red: #7b1030;
+  --gbc-red: #bc002d;
+  --gbc-red-dark: #7a0020;
 }
 
 * { box-sizing: border-box; }
@@ -23,6 +24,73 @@ body {
 
 .font-pixel { font-family: 'Press Start 2P', monospace; }
 .font-body { font-family: 'VT323', monospace; }
+.font-jp { font-family: 'DotGothic16', 'VT323', monospace; }
+
+.jp-gloss {
+  display: block;
+  font-size: 0.7em;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.hanko-seal {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--gbc-red);
+  border: 2px solid var(--gbc-red-dark);
+  color: var(--gbc-white);
+  font-size: 13px;
+  line-height: 1;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.wave-trim {
+  height: 12px;
+  width: 100%;
+  margin-top: -2px;
+  background-image: radial-gradient(circle at 10px -2px, var(--gbc-white) 9px, transparent 9.5px);
+  background-size: 20px 16px;
+  background-repeat: repeat-x;
+  background-position: top;
+}
+
+.sakura-petals {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.sakura-petal {
+  position: absolute;
+  top: -20px;
+  font-size: 16px;
+  opacity: 0.55;
+  animation: petal-fall linear infinite;
+}
+
+@keyframes petal-fall {
+  0% { transform: translateY(-10vh) translateX(0) rotate(0deg); }
+  100% { transform: translateY(110vh) translateX(24px) rotate(280deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sakura-petals { display: none; }
+}
 
 button {
   font-family: inherit;
@@ -217,6 +285,10 @@ button {
 }
 
 .resume-link, .back-button {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
   font-size: 10px;
   background: var(--gbc-gold);
   color: var(--gbc-navy);
@@ -225,6 +297,11 @@ button {
   padding: 10px 14px;
   text-decoration: none;
   margin-top: 8px;
+}
+
+.resume-link .jp-gloss, .back-button .jp-gloss {
+  margin-top: 0;
+  opacity: 0.75;
 }
 
 .back-button { background: var(--gbc-white); }

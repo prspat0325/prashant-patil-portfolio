@@ -38,7 +38,7 @@ export default function App() {
       <AnimatePresence mode="wait">
         {screen === 'boot' && (
           <motion.div key="boot" exit={{ opacity: 0 }} transition={transition}>
-            <BootScreen onStart={goToMenu} />
+            <BootScreen onStart={goToMenu} prefersReducedMotion={prefersReducedMotion} />
           </motion.div>
         )}
         {screen === 'menu' && (
