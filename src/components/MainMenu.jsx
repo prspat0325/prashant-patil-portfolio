@@ -6,11 +6,11 @@ import profile from '../data/profile'
 import labels from '../data/labels'
 
 const MENU_ITEMS = [
-  { key: 'trainer', label: 'TRAINER CARD', subtitle: 'About' },
-  { key: 'pokedex', label: 'POKEDEX', subtitle: 'Projects' },
-  { key: 'moves', label: 'MOVES', subtitle: 'Skills' },
-  { key: 'badges', label: 'BADGES', subtitle: 'Experience' },
-  { key: 'contact', label: 'CONTACT', subtitle: 'Get in touch' },
+  { key: 'trainer', label: 'ABOUT' },
+  { key: 'pokedex', label: 'PROJECTS' },
+  { key: 'moves', label: 'SKILLS' },
+  { key: 'badges', label: 'EXPERIENCE' },
+  { key: 'contact', label: 'CONTACT' },
 ]
 
 export default function MainMenu({ onNavigate, playBlip, prefersReducedMotion }) {
@@ -24,7 +24,7 @@ export default function MainMenu({ onNavigate, playBlip, prefersReducedMotion })
     <div className="menu-screen">
       <div className="title-row">
         <h1 className="font-pixel menu-title">{profile.identity.name.toUpperCase()}</h1>
-        <span className="hanko-seal font-jp" title="craftsman">匠</span>
+        <span className="avatar-badge" role="img" aria-label="person coding at a laptop">🧑‍💻</span>
       </div>
       <div className="menu-list-wrap">
         <div className="mascot-perch mascot-perch-left">
@@ -41,7 +41,6 @@ export default function MainMenu({ onNavigate, playBlip, prefersReducedMotion })
                 onClick={() => { playBlip?.(); onNavigate(item.key) }}
               >
                 <span className="cursor">{i === cursorIndex ? '▶' : ''}</span> {item.label}
-                <span className="menu-item-subtitle font-body">{item.subtitle}</span>
                 <span className="menu-item-subtitle font-jp">{labels.menu[item.key]}</span>
               </button>
             </li>

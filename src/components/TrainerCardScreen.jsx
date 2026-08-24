@@ -11,7 +11,7 @@ export default function TrainerCardScreen({ onBack, prefersReducedMotion }) {
   return (
     <div className="console-frame screen-content">
       <PsychicCreature prefersReducedMotion={prefersReducedMotion} />
-      <h2 className="font-pixel" style={{ fontSize: '14px' }}>TRAINER CARD</h2>
+      <h2 className="font-pixel" style={{ fontSize: '14px' }}>ABOUT</h2>
       <p className="font-jp jp-gloss" style={{ margin: 0 }}>{labels.screens.trainer}</p>
       <p className="font-body" style={{ marginBottom: 4 }}>{identity.name} — {identity.title}</p>
       <p className="font-body" style={{ marginTop: 0, opacity: 0.85 }}>{identity.location}</p>

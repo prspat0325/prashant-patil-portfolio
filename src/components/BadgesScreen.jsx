@@ -15,7 +15,7 @@ export default function BadgesScreen({ onBack, prefersReducedMotion }) {
       <div className={`mascot-corner mascot-corner-right dog-roam ${prefersReducedMotion ? 'is-static' : ''}`}>
         <DogCharacter prefersReducedMotion={prefersReducedMotion} />
       </div>
-      <h2 className="font-pixel" style={{ fontSize: '14px' }}>BADGES</h2>
+      <h2 className="font-pixel" style={{ fontSize: '14px' }}>EXPERIENCE</h2>
       <p className="font-jp jp-gloss" style={{ margin: 0 }}>{labels.screens.badges}</p>
 
       <div className="badges-list">

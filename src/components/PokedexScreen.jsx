@@ -25,7 +25,7 @@ export default function PokedexScreen({ onBack, playBlip, prefersReducedMotion }
   return (
     <div className="console-frame screen-content">
       <LeviathanCreature prefersReducedMotion={prefersReducedMotion} />
-      <h2 className="font-pixel" style={{ fontSize: '14px' }}>POKEDEX</h2>
+      <h2 className="font-pixel" style={{ fontSize: '14px' }}>PROJECTS</h2>
       <p className="font-jp jp-gloss" style={{ margin: 0 }}>{labels.screens.pokedex}</p>
 
       {!openProject && (

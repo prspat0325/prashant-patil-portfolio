@@ -34,7 +34,7 @@ export default function BootScreen({ onStart, prefersReducedMotion }) {
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
         <div className="title-row">
           <h1 className="font-pixel boot-title">{profile.identity.name.toUpperCase()}</h1>
-          <span className="hanko-seal font-jp" title="craftsman">匠</span>
+          <span className="avatar-badge" role="img" aria-label="person coding at a laptop">🧑‍💻</span>
         </div>
         <p className="font-jp jp-gloss" style={{ margin: 0, fontSize: '13px' }}>{labels.name}</p>
       </div>

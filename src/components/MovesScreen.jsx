@@ -8,7 +8,7 @@ export default function MovesScreen({ onBack }) {
 
   return (
     <div className="console-frame screen-content">
-      <h2 className="font-pixel" style={{ fontSize: '14px' }}>MOVES</h2>
+      <h2 className="font-pixel" style={{ fontSize: '14px' }}>SKILLS</h2>
       <p className="font-jp jp-gloss" style={{ margin: 0 }}>{labels.screens.moves}</p>
       <div className="moves-list">
         {skillGroups.map((group) => (
