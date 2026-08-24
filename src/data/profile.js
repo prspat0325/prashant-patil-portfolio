@@ -5,7 +5,7 @@ const profile = {
     location: 'Pune, Maharashtra, India',
     phone: '+91 93730 34327',
     email: 'prashant.patil25@outlook.com',
-    linkedin: 'https://linkedin.com/in/prashant-patil',
+    linkedin: 'https://in.linkedin.com/in/prashant-patil-189990202',
     github: 'https://github.com/oneupon2',
   },
   summary:
