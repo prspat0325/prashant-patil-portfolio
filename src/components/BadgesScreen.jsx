@@ -1,19 +1,14 @@
 import { useBackNavigation } from '../hooks/useBackNavigation'
-import DragonCreature from './creatures/DragonCreature'
-import DogCharacter from './creatures/DogCharacter'
 import profile from '../data/profile'
 import labels from '../data/labels'
 
-export default function BadgesScreen({ onBack, prefersReducedMotion }) {
+export default function BadgesScreen({ onBack }) {
   useBackNavigation(onBack)
   const { experience, certifications, certificationsVerifyUrl, education } = profile
 
   return (
     <div className="console-frame screen-content">
-      <DragonCreature prefersReducedMotion={prefersReducedMotion} />
-      <div className={`mascot-corner mascot-corner-right dog-roam ${prefersReducedMotion ? 'is-static' : ''}`}>
-        <DogCharacter prefersReducedMotion={prefersReducedMotion} />
-      </div>
+      {/* Pixel mascots removed for a calmer, subtler look. Sprites are kept in ./creatures if you want them back. */}
       <h2 className="font-pixel" style={{ fontSize: '14px' }}>EXPERIENCE</h2>
       <p className="font-jp jp-gloss" style={{ margin: 0 }}>{labels.screens.badges}</p>
 

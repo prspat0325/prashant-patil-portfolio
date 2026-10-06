@@ -193,7 +193,7 @@ button {
   line-height: 1.5;
   max-width: min(92vw, 760px);
   width: 100%;
-  cursor: pointer;
+  cursor: default;
 }
 
 .type-cursor {

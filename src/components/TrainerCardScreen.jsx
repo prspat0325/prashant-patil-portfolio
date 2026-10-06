@@ -1,22 +1,21 @@
 import { useBackNavigation } from '../hooks/useBackNavigation'
 import DialogueBox from './DialogueBox'
-import PsychicCreature from './creatures/PsychicCreature'
 import profile from '../data/profile'
 import labels from '../data/labels'
 
-export default function TrainerCardScreen({ onBack, prefersReducedMotion }) {
+export default function TrainerCardScreen({ onBack }) {
   useBackNavigation(onBack)
   const { identity, summary, stats } = profile
 
   return (
     <div className="console-frame screen-content">
-      <PsychicCreature prefersReducedMotion={prefersReducedMotion} />
+      {/* Pixel mascots removed for a calmer, subtler look. Sprites are kept in ./creatures if you want them back. */}
       <h2 className="font-pixel" style={{ fontSize: '14px' }}>ABOUT</h2>
       <p className="font-jp jp-gloss" style={{ margin: 0 }}>{labels.screens.trainer}</p>
       <p className="font-body" style={{ marginBottom: 4 }}>{identity.name} — {identity.title}</p>
       <p className="font-body" style={{ marginTop: 0, opacity: 0.85 }}>{identity.location}</p>
 
-      <DialogueBox text={summary} prefersReducedMotion={prefersReducedMotion} />
+      <DialogueBox text={summary} />
 
       <ul className="font-body stat-list">
         {stats.map((s) => (

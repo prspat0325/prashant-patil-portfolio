@@ -45,7 +45,7 @@ export default function App() {
         )}
         {screen === 'menu' && (
           <motion.div key="menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={transition}>
-            <MainMenu onNavigate={setScreen} playBlip={playBlip} prefersReducedMotion={prefersReducedMotion} />
+            <MainMenu onNavigate={setScreen} playBlip={playBlip} />
           </motion.div>
         )}
         {ActiveScreen && (
@@ -56,7 +56,7 @@ export default function App() {
             exit={{ opacity: 0, y: -8 }}
             transition={transition}
           >
-            <ActiveScreen onBack={goToMenu} playBlip={playBlip} prefersReducedMotion={prefersReducedMotion} />
+            <ActiveScreen onBack={goToMenu} playBlip={playBlip} />
           </motion.div>
         )}
       </AnimatePresence>

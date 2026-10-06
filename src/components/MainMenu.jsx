@@ -1,7 +1,5 @@
 import { useMenuNavigation } from '../hooks/useMenuNavigation'
 import ConsoleDpad from './ConsoleDpad'
-import CatCharacter from './creatures/CatCharacter'
-import DogCharacter from './creatures/DogCharacter'
 import profile from '../data/profile'
 import labels from '../data/labels'
 
@@ -13,7 +11,7 @@ const MENU_ITEMS = [
   { key: 'contact', label: 'CONTACT' },
 ]
 
-export default function MainMenu({ onNavigate, playBlip, prefersReducedMotion }) {
+export default function MainMenu({ onNavigate, playBlip }) {
   const { cursorIndex, moveUp, moveDown, select } = useMenuNavigation({
     itemCount: MENU_ITEMS.length,
     onMove: () => playBlip?.('move'),
@@ -27,12 +25,7 @@ export default function MainMenu({ onNavigate, playBlip, prefersReducedMotion })
         <span className="avatar-badge" role="img" aria-label="person coding at a laptop">🧑‍💻</span>
       </div>
       <div className="menu-list-wrap">
-        <div className="mascot-perch mascot-perch-left">
-          <CatCharacter prefersReducedMotion={prefersReducedMotion} />
-        </div>
-        <div className="mascot-perch mascot-perch-right">
-          <DogCharacter prefersReducedMotion={prefersReducedMotion} />
-        </div>
+        {/* Pixel mascots removed for a calmer, subtler look. Sprites are kept in ./creatures if you want them back. */}
         <ul className="menu-list font-pixel">
           {MENU_ITEMS.map((item, i) => (
             <li key={item.key} className={i === cursorIndex ? 'active' : ''}>

@@ -3,11 +3,10 @@ import { useMenuNavigation } from '../hooks/useMenuNavigation'
 import { useBackNavigation } from '../hooks/useBackNavigation'
 import DialogueBox from './DialogueBox'
 import ConsoleDpad from './ConsoleDpad'
-import LeviathanCreature from './creatures/LeviathanCreature'
 import profile from '../data/profile'
 import labels from '../data/labels'
 
-export default function PokedexScreen({ onBack, playBlip, prefersReducedMotion }) {
+export default function PokedexScreen({ onBack, playBlip }) {
   const [openId, setOpenId] = useState(null)
   const { projects } = profile
 
@@ -24,7 +23,7 @@ export default function PokedexScreen({ onBack, playBlip, prefersReducedMotion }
 
   return (
     <div className="console-frame screen-content">
-      <LeviathanCreature prefersReducedMotion={prefersReducedMotion} />
+      {/* Pixel mascots removed for a calmer, subtler look. Sprites are kept in ./creatures if you want them back. */}
       <h2 className="font-pixel" style={{ fontSize: '14px' }}>PROJECTS</h2>
       <p className="font-jp jp-gloss" style={{ margin: 0 }}>{labels.screens.pokedex}</p>
 
@@ -43,7 +42,7 @@ export default function PokedexScreen({ onBack, playBlip, prefersReducedMotion }
       {openProject && (
         <>
           <p className="font-pixel" style={{ fontSize: '11px' }}>No. {openProject.number} {openProject.name.toUpperCase()}</p>
-          <DialogueBox text={openProject.description} prefersReducedMotion={prefersReducedMotion} />
+          <DialogueBox text={openProject.description} />
           <p className="font-body">Tech: {openProject.tech.join(', ')}</p>
           <a className="font-pixel resume-link" href={openProject.link.url} target="_blank" rel="noreferrer">
             {openProject.link.label.toUpperCase()}
