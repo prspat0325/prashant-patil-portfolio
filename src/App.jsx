@@ -5,6 +5,7 @@ import { useSound } from './hooks/useSound'
 import BootScreen from './components/BootScreen'
 import MainMenu from './components/MainMenu'
 import MuteToggle from './components/MuteToggle'
+import SakuraPetals from './components/SakuraPetals'
 import TrainerCardScreen from './components/TrainerCardScreen'
 import PokedexScreen from './components/PokedexScreen'
 import MovesScreen from './components/MovesScreen'
@@ -28,17 +29,18 @@ export default function App() {
 
   const transition = prefersReducedMotion
     ? { duration: 0 }
-    : { duration: 0.25, ease: 'easeInOut' }
+    : { duration: 0.6, ease: 'easeOut' }
 
   const ActiveScreen = SCREEN_COMPONENTS[screen]
 
   return (
     <>
+      <SakuraPetals prefersReducedMotion={prefersReducedMotion} />
       {screen !== 'boot' && <MuteToggle muted={muted} toggleMute={toggleMute} />}
       <AnimatePresence mode="wait">
         {screen === 'boot' && (
           <motion.div key="boot" exit={{ opacity: 0 }} transition={transition}>
-            <BootScreen onStart={goToMenu} prefersReducedMotion={prefersReducedMotion} />
+            <BootScreen onStart={goToMenu} />
           </motion.div>
         )}
         {screen === 'menu' && (
@@ -49,9 +51,9 @@ export default function App() {
         {ActiveScreen && (
           <motion.div
             key={screen}
-            initial={{ opacity: 0, x: 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -24 }}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
             transition={transition}
           >
             <ActiveScreen onBack={goToMenu} playBlip={playBlip} prefersReducedMotion={prefersReducedMotion} />

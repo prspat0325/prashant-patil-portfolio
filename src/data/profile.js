@@ -1,87 +1,112 @@
 const profile = {
   identity: {
     name: 'Prashant Patil',
-    title: 'DevOps Engineer | CI/CD | AWS | Kubernetes',
-    location: 'Pune, Maharashtra, India',
+    title: 'DevOps Engineer | AWS | Kubernetes | Terraform | CI/CD',
+    location: 'Pune, India',
     phone: '+91 93730 34327',
     email: 'prashant.patil25@outlook.com',
     linkedin: 'https://in.linkedin.com/in/prashant-patil-189990202',
     github: 'https://github.com/oneupon2',
   },
   summary:
-    'DevOps Engineer with 3.2+ years of experience building CI/CD pipelines, ' +
-    'automating infrastructure provisioning, and managing containerized, ' +
-    'cloud-native applications on AWS. Skilled in Docker, Kubernetes, ' +
-    'Terraform, and Infrastructure as Code, with hands-on experience ' +
-    'administering cloud infrastructure and leading large-scale environment ' +
-    'migrations (OCI-Exadata to AWS@Exadata).',
+    'DevOps Engineer with 3+ years of fintech experience at Nasdaq, building CI/CD pipelines, ' +
+    'automating infrastructure with Terraform, and running containerized, cloud-native workloads ' +
+    'on AWS and Kubernetes. Migrated 10+ environments from OCI-Exadata to AWS and resolved critical ' +
+    'production issues for global banking clients through root cause analysis. Certified Kubernetes ' +
+    'and Cloud Native Associate (KCNA), with Professional-level certification in the Nasdaq AxiomSL ' +
+    'regulatory reporting platform.',
   stats: [
-    { label: 'YEARS OF EXPERIENCE', value: '3.2+' },
-    { label: 'SPECIALTY', value: 'AWS / Kubernetes / Terraform' },
+    { label: 'EXPERIENCE', value: '3+ years in fintech (Nasdaq)' },
+    { label: 'SPECIALTY', value: 'AWS / Kubernetes / Terraform / CI/CD' },
+    { label: 'MIGRATIONS', value: '10+ environments, OCI-Exadata → AWS' },
     { label: 'BASE', value: 'Pune, India' },
   ],
   skillGroups: [
     {
-      category: 'Cloud & Infra',
-      skills: ['AWS (EC2, S3, RDS, DynamoDB, IAM, CloudWatch)', 'Terraform', 'Infrastructure as Code', 'Kubernetes', 'Docker', 'Linux', 'Cloud Computing'],
+      category: 'Cloud (AWS)',
+      skills: [
+        'AWS: EC2, ECS, Lambda, Auto Scaling, S3, RDS, DynamoDB, IAM, CloudWatch, IMDS',
+        'Oracle Cloud (OCI) Exadata',
+        'Cloud Migration',
+      ],
     },
     {
-      category: 'CI/CD & Automation',
-      skills: ['Jenkins', 'GitLab CI/CD', 'DevOps'],
+      category: 'Containers',
+      skills: ['Docker', 'Kubernetes'],
     },
     {
-      category: 'Languages',
-      skills: ['Python', 'Core Java'],
+      category: 'CI/CD & IaC',
+      skills: ['CI/CD Pipelines', 'Git', 'Jenkins', 'GitLab CI/CD', 'GitHub Actions', 'Terraform', 'Infrastructure as Code (IaC)'],
     },
     {
-      category: 'Monitoring & Tools',
-      skills: ['Datadog', 'Splunk', 'Grafana', 'Jira', 'Salesforce', 'ServiceNow'],
+      category: 'Monitoring & Observability',
+      skills: ['Datadog', 'Splunk', 'Grafana', 'Amazon CloudWatch', 'Logging & Alerting', 'Troubleshooting & Root Cause Analysis (RCA)'],
     },
     {
-      category: 'Other',
-      skills: ['Machine Learning', 'Angular'],
+      category: 'Scripting & OS',
+      skills: ['Python', 'Bash', 'Linux'],
+    },
+    {
+      category: 'Databases',
+      skills: ['PostgreSQL', 'Oracle', 'Amazon RDS', 'DynamoDB'],
+    },
+    {
+      category: 'Tools & Domain',
+      skills: ['Jira', 'Confluence', 'ServiceNow', 'Salesforce', 'Fintech', 'Regulatory Reporting (Nasdaq AxiomSL)'],
     },
   ],
   experience: [
     {
-      company: 'NASDAQ',
+      company: 'Nasdaq',
       role: 'DevOps Engineer',
-      dates: 'Aug 2023 - Present',
+      dates: 'Aug 2023 - Present · Pune, India',
       bullets: [
-        'Applied Terraform for Infrastructure as Code automation, streamlining cloud resource provisioning and configuration management.',
-        'Delivered infrastructure upgrades using IaC methodologies, improving platform stability, maintainability, and release velocity.',
-        'Designed and managed containerized applications using Docker, improving build consistency and deployment efficiency.',
-        'Deployed and orchestrated cloud-native applications using Kubernetes, enhancing availability and fault tolerance.',
-        'Administered AWS cloud infrastructure (EC2, DynamoDB, S3, RDS, IAM, CloudWatch) supporting CI/CD and production monitoring.',
-        'Contributed to AWS@Exadata, migrating environments from OCI-Exadata to AWS, coordinating cutover activities to minimize downtime.',
-        'Maintained Confluence documentation, keeping CI/CD runbooks and operational procedures current.',
+        'Migrated 10+ environments from OCI-Exadata to AWS in the AWS@Exadata cloud migration, coordinating cutover activities across teams to minimize downtime and ensure business continuity.',
+        'Found the root cause of a critical Oracle wallet compatibility failure (outdated Oracle client libraries could not parse the modern Exadata wallet format); resolved it with a legacy -compat_v11 wallet instead of a risky library upgrade, keeping the customer migration cluster available.',
+        'Resolved S3 connectivity failures for two major international banking clients after the S3 utility moved from AWS SDK v1 to v2, diagnosing missing HTTP/HTTPS proxy settings behind corporate proxies and fixing them on live client calls.',
+        'Resolved workflow failures caused by AWS Instance Metadata Service (IMDS) request throttling, monitoring the ENA linklocal_allowance_exceeded metric and increasing timeout parameters in Amazon ECS.',
+        'Automated provisioning and configuration of AWS resources with Terraform (Infrastructure as Code), replacing manual setup and improving platform stability and release velocity.',
+        'Deployed containerized, cloud-native applications with Docker and Kubernetes, standardizing builds across dev, test, and production and improving high availability and fault tolerance.',
+        'Administered AWS infrastructure (EC2, ECS, S3, RDS, DynamoDB, IAM, CloudWatch) supporting CI/CD pipelines and production monitoring; maintained CI/CD runbooks in Confluence.',
       ],
     },
     {
-      company: 'Adenza',
+      company: 'Adenza (now part of Nasdaq)',
       role: 'Cloud Intern',
-      dates: 'Jan 2023 - Aug 2023',
+      dates: 'Jan 2023 - Aug 2023 · Pune, India',
       bullets: [
-        'Automated deployment and environment provisioning using Jenkins, streamlining CI/CD build and release processes.',
-        'Monitored system performance and infrastructure health using Datadog, Splunk, and Grafana.',
-        'Managed and optimized relational databases, including PostgreSQL and Oracle.',
-        'Provided technical support and resolved customer issues through Jira, Salesforce, and ServiceNow.',
+        'Automated deployments and environment provisioning with Jenkins, streamlining CI/CD build and release processes for client environments.',
+        'Monitored system performance and infrastructure health with Datadog, Splunk, and Grafana, improving observability and troubleshooting.',
+        'Managed and optimized PostgreSQL and Oracle databases, ensuring data integrity and performance.',
+        'Resolved client issues through Jira, Salesforce, and ServiceNow, improving client satisfaction and operational efficiency.',
       ],
     },
   ],
   certifications: [
-    'edX Verified Certificate — Introduction to Linux',
-    'edX Verified Certificate — AWS Cloud Practitioner Essentials',
-    'Nasdaq AxiomSL v10 Associate Technical Certification',
+    'Kubernetes and Cloud Native Associate (KCNA) — Linux Foundation · ID LF-su9cdfcz4e (Oct 2026)',
+    'Nasdaq AxiomSL Technical Certification - Professional — Nasdaq (Sep 2026)',
+    'Nasdaq AxiomSL Technical Certification - Associate — Nasdaq (Mar 2025)',
+    'HashiCorp Certified: Terraform Associate — HashiCorp (In Progress)',
   ],
+  certificationsVerifyUrl: 'https://www.linkedin.com/in/prashant-patil-189990202/details/certifications/',
   education: [
     { degree: 'M.Sc. in Computer Science', school: 'MIT World Peace University, Pune', date: 'July 2023', percentage: '92%' },
     { degree: 'B.Sc. in Computer Science', school: 'MIT World Peace University, Pune', date: 'June 2021', percentage: '87%' },
   ],
   projects: [
     {
-      id: 'anurup-collections',
+      id: 'jpmc-forage',
       number: '001',
+      name: 'JPMorgan Chase Software Engineering Job Simulation',
+      description:
+        'Forage job simulation (Jan 2026): completed practical tasks in project setup, Kafka integration, ' +
+        'H2 database integration, and REST API integration and controllers.',
+      tech: ['Kafka', 'H2 Database', 'REST APIs'],
+      link: { label: 'View GitHub profile', url: 'https://github.com/oneupon2' },
+    },
+    {
+      id: 'anurup-collections',
+      number: '002',
       name: 'Anurup Collections',
       description:
         'A full-stack e-commerce site built with Spring Boot and React: Google Sign-In for customers, ' +
@@ -91,7 +116,7 @@ const profile = {
     },
     {
       id: 'sasta-olx',
-      number: '002',
+      number: '003',
       name: 'Sasta OLX',
       description:
         'An OLX-style marketplace academic project built with Angular: product browsing, posting, and purchase ' +
@@ -101,7 +126,7 @@ const profile = {
     },
     {
       id: 'medical-image-classification',
-      number: '003',
+      number: '004',
       name: 'Medical Image Classification (CNN)',
       description:
         'A research project on pneumonia detection from chest X-ray images using a ResNet V2-based ' +

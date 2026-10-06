@@ -1,5 +1,4 @@
 import { useBackNavigation } from '../hooks/useBackNavigation'
-import DialogueBox from './DialogueBox'
 import DragonCreature from './creatures/DragonCreature'
 import DogCharacter from './creatures/DogCharacter'
 import profile from '../data/profile'
@@ -7,7 +6,7 @@ import labels from '../data/labels'
 
 export default function BadgesScreen({ onBack, prefersReducedMotion }) {
   useBackNavigation(onBack)
-  const { experience, certifications } = profile
+  const { experience, certifications, certificationsVerifyUrl, education } = profile
 
   return (
     <div className="console-frame screen-content">
@@ -23,11 +22,11 @@ export default function BadgesScreen({ onBack, prefersReducedMotion }) {
           <div key={job.company} className="badge-card">
             <p className="font-pixel badge-title">{job.company} — {job.role}</p>
             <p className="font-body badge-dates">{job.dates}</p>
-            <DialogueBox
-              text={job.bullets.join(' ')}
-              prefersReducedMotion={prefersReducedMotion}
-              className="badge-dialogue"
-            />
+            <ul className="dialogue-box font-body badge-dialogue badge-bullets">
+              {job.bullets.map((bullet) => (
+                <li key={bullet}>{bullet}</li>
+              ))}
+            </ul>
           </div>
         ))}
 
@@ -36,7 +35,19 @@ export default function BadgesScreen({ onBack, prefersReducedMotion }) {
         </p>
         <ul className="font-body ribbon-list">
           {certifications.map((cert) => (
-            <li key={cert}>🎖 {cert}</li>
+            <li key={cert}>❀ {cert}</li>
+          ))}
+        </ul>
+        <a className="font-body verify-link" href={certificationsVerifyUrl} target="_blank" rel="noreferrer">
+          Verify all credentials on LinkedIn ↗
+        </a>
+
+        <p className="font-pixel badge-title" style={{ marginTop: 24 }}>
+          EDUCATION <span className="font-jp" style={{ opacity: 0.7 }}>({labels.screens.education})</span>
+        </p>
+        <ul className="font-body ribbon-list">
+          {education.map((ed) => (
+            <li key={ed.degree}>❀ {ed.degree} — {ed.school} · {ed.date} · {ed.percentage}</li>
           ))}
         </ul>
       </div>

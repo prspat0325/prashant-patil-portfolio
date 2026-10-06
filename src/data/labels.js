@@ -18,6 +18,7 @@ const labels = {
     badges: '経歴',
     contact: 'お問い合わせ',
     certifications: 'しかく',
+    education: 'がくれき',
   },
 }
 
